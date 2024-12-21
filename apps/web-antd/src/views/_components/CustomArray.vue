@@ -1,17 +1,11 @@
 <script lang="ts" setup>
 import type { ColumnType } from '#/typing'
 
-import { computed, h } from 'vue'
+import { computed } from 'vue'
 
-import {
-  CaretDownOutlined,
-  CaretRightOutlined,
-  DeleteOutlined,
-  PlusCircleOutlined,
-} from '@ant-design/icons-vue'
+import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons-vue'
 
 import CustomBoolean from './CustomBoolean.vue'
-import CustomField from './CustomField.vue'
 import CustomInput from './CustomInput.vue'
 import CustomInputNumber from './CustomInputNumber.vue'
 import CustomObj from './CustomObj.vue'
@@ -20,7 +14,6 @@ interface ArrayProps {
   columns: ColumnType[]
   table: any[]
 }
-
 const props = defineProps<ArrayProps>()
 const emit = defineEmits(['update:table'])
 
@@ -39,33 +32,54 @@ const handleDeleteRow = (index: number) => {
   emit('update:table', updatedTable)
 }
 
-// 添加新行
-const handleAddRow = (record: any, index: number) => {
-  // 深拷贝当前行的数据结构
-  const newRow = JSON.parse(JSON.stringify(record)) // eslint-disable-line unicorn/prefer-structured-clone
-
-  // 重置值，但保持数据结构
-  switch (record.type) {
+// 获取默认值
+const getDefaultValue = (type: string) => {
+  switch (type) {
     case 'array': {
-      newRow.childrenTable = []
-      break
+      return []
     }
     case 'boolean': {
-      newRow.value = false
-      break
+      return false
     }
     case 'number': {
-      newRow.value = 0
-      break
+      return 0
     }
-    case 'object': {
-      newRow.childrenTable = []
-      break
+    case 'string': {
+      return ''
     }
     default: {
-      newRow.value = ''
+      return null
     }
   }
+}
+
+// 添加新行
+const handleAddRow = (record: any, index: number) => {
+  // eslint-disable-next-line unicorn/prefer-structured-clone
+  const newRow = JSON.parse(JSON.stringify(record))
+
+  // 重置值，但保持数据结构
+  const resetValue = (obj: any) => {
+    if (obj.childrenTable) {
+      obj.childrenTable = obj.childrenTable.map((child: any) => {
+        const newChild = { ...child }
+        if (child.type === 'object') {
+          resetValue(newChild)
+        } else if (child.type === 'array') {
+          newChild.childrenTable = [] // 重置数组为空
+        } else {
+          newChild.value = getDefaultValue(child.type)
+        }
+        return newChild
+      })
+    } else {
+      obj.value = getDefaultValue(obj.type)
+    }
+    return obj
+  }
+
+  // 重置新行的值
+  resetValue(newRow)
 
   // 在当前行后插入新行
   const updatedTable = [...props.table]
@@ -73,127 +87,153 @@ const handleAddRow = (record: any, index: number) => {
   emit('update:table', updatedTable)
 }
 
-// 扩展列定义，添加操作列
-const extendedColumns = computed(() => [
-  ...props.columns,
-  {
-    title: '操作',
-    key: 'operation',
-    fixed: 'right',
-    width: 120,
-    customRender: ({ record, index }) =>
-      h('div', { style: 'display: flex; gap: 8px;' }, [
-        h(
-          'a',
-          {
-            onClick: () => handleAddRow(record, index),
-          },
-          [h(PlusCircleOutlined)],
-        ),
-        h(
-          'a',
-          {
-            onClick: () => handleDeleteRow(index),
-          },
-          [h(DeleteOutlined)],
-        ),
-      ]),
-  },
-])
+// 为数组项生成列定义
+const arrayColumns = computed(() => {
+  if (props.table.length === 0) return []
 
-// 展开图标
-const expandIcon = (propsval: any) => {
-  if (propsval.record.hasChildren) {
-    return h(
-      'span',
-      {
-        class: 'expand-icon-wrapper',
-        onClick: (e) => {
-          propsval.onExpand(propsval.record, e)
-        },
-      },
-      [
-        h(propsval.expanded ? CaretDownOutlined : CaretRightOutlined, {
-          class: 'expand-icon',
-        }),
-      ],
-    )
-  }
-  return null
-}
+  const firstItem = props.table[0]
+  if (!firstItem.childrenTable) return []
+
+  const columns = firstItem.childrenTable.map((field: any) => ({
+    title: field.key,
+    dataIndex: field.key,
+    key: field.key,
+  }))
+
+  return [
+    ...columns,
+    {
+      title: '操作',
+      key: 'operation',
+      fixed: 'right',
+      width: 120,
+    },
+  ]
+})
+
+// 转换数据为表格所需格式
+const tableData = computed(() => {
+  return props.table.map((item, index) => {
+    const rowData: any = {
+      key: index,
+      _original: item,
+    }
+
+    if (item.childrenTable) {
+      item.childrenTable.forEach((field: any) => {
+        rowData[field.key] = field
+      })
+    }
+
+    return rowData
+  })
+})
 </script>
 
 <template>
-  <a-table
-    :columns="extendedColumns"
-    :data-source="props.table"
-    :default-expand-all-rows="false"
-    :expand-icon="expandIcon"
-    :pagination="false"
-    :scroll="{ x: '100%' }"
-    bordered
-    class="components-table-demo-nested"
-    size="small"
-  >
-    <template #bodyCell="{ column, record }">
-      <template v-if="column.dataIndex === 'key'">
-        <CustomField :title="record.key" />
+  <div class="array-table">
+    <a-table
+      :columns="arrayColumns"
+      :data-source="tableData"
+      :pagination="false"
+      bordered
+      size="small"
+    >
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'operation'">
+          <div class="operation-buttons">
+            <a-button
+              type="link"
+              @click="handleAddRow(record._original, tableData.indexOf(record))"
+            >
+              <PlusCircleOutlined />
+            </a-button>
+            <a-button
+              type="link"
+              @click="handleDeleteRow(tableData.indexOf(record))"
+            >
+              <DeleteOutlined />
+            </a-button>
+          </div>
+        </template>
+        <template v-else>
+          <template v-if="record[column.key]">
+            <template v-if="!record[column.key].hasChildren">
+              <component
+                :is="
+                  record[column.key].type === 'string'
+                    ? CustomInput
+                    : record[column.key].type === 'number'
+                      ? CustomInputNumber
+                      : record[column.key].type === 'boolean'
+                        ? CustomBoolean
+                        : null
+                "
+                v-model:input="record[column.key].value"
+                @update:input="
+                  (val) =>
+                    handleValueChange(
+                      { value: val },
+                      record[column.key],
+                      'value',
+                    )
+                "
+              />
+            </template>
+            <template v-else>
+              <template v-if="record[column.key].type === 'array'">
+                <CustomArray
+                  :columns="record[column.key].childrenColumn"
+                  :table="record[column.key].childrenTable"
+                  @update:table="
+                    (val) =>
+                      handleValueChange(
+                        { childrenTable: val },
+                        record[column.key],
+                        'childrenTable',
+                      )
+                  "
+                />
+              </template>
+              <template v-else-if="record[column.key].type === 'object'">
+                <CustomObj
+                  :columns="record[column.key].childrenColumn"
+                  :table="record[column.key].childrenTable"
+                  @update:table="
+                    (val) =>
+                      handleValueChange(
+                        { childrenTable: val },
+                        record[column.key],
+                        'childrenTable',
+                      )
+                  "
+                />
+              </template>
+            </template>
+          </template>
+        </template>
       </template>
-      <template v-else-if="column.dataIndex === 'value'">
-        <component
-          :is="
-            record.type === 'string'
-              ? CustomInput
-              : record.type === 'number'
-                ? CustomInputNumber
-                : record.type === 'boolean'
-                  ? CustomBoolean
-                  : record.type === 'object'
-                    ? CustomObj
-                    : null
-          "
-          v-if="record.type !== 'object' && record.type !== 'array'"
-          v-model:input="record.value"
-          @update:input="(val) => handleValueChange(val, record, 'value')"
-        />
-        <CustomObj
-          v-else-if="record.type === 'object'"
-          :columns="record.childrenColumn"
-          :table="record.childrenTable"
-          @update:table="
-            (val) =>
-              handleValueChange({ childrenTable: val }, record, 'childrenTable')
-          "
-        />
-        <CustomArray
-          v-else
-          :columns="record.childrenColumn"
-          :table="record.childrenTable"
-          @update:table="
-            (val) =>
-              handleValueChange({ childrenTable: val }, record, 'childrenTable')
-          "
-        />
-      </template>
-    </template>
-  </a-table>
+    </a-table>
+  </div>
 </template>
 
 <style scoped>
+.array-table {
+  width: 100%;
+}
+
 :deep(.ant-table-cell) {
   padding: 8px !important;
 }
 
-:deep(.ant-table-body) {
-  overflow-x: auto;
+.operation-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
 }
 
-.expand-icon-wrapper {
-  padding: 0 4px;
-  cursor: pointer;
-}
-
-.expand-icon {
-  font-size: 12px;
+:deep(.ant-btn-link) {
+  height: auto;
+  padding: 0;
 }
 </style>

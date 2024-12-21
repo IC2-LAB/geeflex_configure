@@ -1,9 +1,5 @@
 export const parser = (schema: any, data: any) => {
   const resTable = []
-  const basicColumn = [
-    { title: '字段', dataIndex: 'key', width: '30%' },
-    { title: '值', dataIndex: 'value' },
-  ]
 
   Object.entries(data).forEach(([key, value]) => {
     const currentSchema = schema[key]
@@ -22,30 +18,42 @@ export const parser = (schema: any, data: any) => {
         res.hasChildren = true
         res.child = true
         res.type = 'array'
-        res.childrenColumn = [...basicColumn]
+        res.childrenColumn = [
+          { title: '字段', dataIndex: 'key', width: '30%' },
+          { title: '值', dataIndex: 'value' },
+        ]
         res.childrenTable = value.map((item: any) => {
           const itemSchema = currentSchema.items.properties
           const parsedItems = parser(itemSchema, item)
           return {
-            key,
             type: 'object',
             hasChildren: true,
             child: true,
-            childrenColumn: [...basicColumn],
+            childrenColumn: [
+              { title: '字段', dataIndex: 'key', width: '30%' },
+              { title: '值', dataIndex: 'value' },
+            ],
             childrenTable: parsedItems,
           }
         })
-      } else {
+      } else if (currentSchema.items && typeof value[0] === 'number') {
         // 处理简单数组
         res.type = 'simple_array'
-        res.value = value.join(', ')
+        res.value = value
+      } else {
+        // 处理其他类型数组
+        res.type = 'array'
+        res.value = value
       }
     } else if (typeof value === 'object' && value !== null) {
       // 处理对象
       res.hasChildren = true
       res.child = true
       res.type = 'object'
-      res.childrenColumn = [...basicColumn]
+      res.childrenColumn = [
+        { title: '字段', dataIndex: 'key', width: '30%' },
+        { title: '值', dataIndex: 'value' },
+      ]
       res.childrenTable = parser(currentSchema.properties, value)
     } else {
       // 处理基本类型
@@ -62,32 +70,19 @@ export const reverseParser = (parsedData: any[]): any => {
   const result: any = {}
 
   parsedData.forEach((item) => {
-    switch (item.type) {
-      case 'array': {
-        result[item.key] = item.childrenTable.map((child: any) => {
-          if (child.type === 'object') {
-            return reverseParser(child.childrenTable)
-          }
-          return child.value
-        })
-
-        break
-      }
-      case 'object': {
-        result[item.key] = reverseParser(item.childrenTable)
-
-        break
-      }
-      case 'simple_array': {
-        result[item.key] = item.value
-          .split(',')
-          .map((v: string) => Number(v.trim()))
-
-        break
-      }
-      default: {
-        result[item.key] = item.value
-      }
+    if (item.type === 'array' && item.childrenTable) {
+      result[item.key] = item.childrenTable.map((child: any) => {
+        if (child.type === 'object') {
+          return reverseParser(child.childrenTable)
+        }
+        return child.value
+      })
+    } else if (item.type === 'object') {
+      result[item.key] = reverseParser(item.childrenTable)
+    } else if (item.type === 'simple_array') {
+      result[item.key] = Array.isArray(item.value) ? item.value : []
+    } else {
+      result[item.key] = item.value
     }
   })
 
