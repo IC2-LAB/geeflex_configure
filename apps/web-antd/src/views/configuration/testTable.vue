@@ -16,21 +16,19 @@ const columns = ref<ColumnType[]>([
 
 const tableData = ref(parser(schemaData.properties, originData))
 
-// 监听数据变化
+// 处理表格数据更新
+const handleTableUpdate = (newData: any[]) => {
+  // 直接赋值，保持引用关系
+  tableData.value = newData
+}
+
 // watch(
 //   tableData,
 //   (newVal) => {
-//     console.group("Root Data Change");
-//     console.log("Root data updated:", JSON.stringify(newVal, null, 2));
-//     console.groupEnd();
+//     console.log("Table data updated:", newVal);
 //   },
 //   { deep: true }
 // );
-
-// 处理表格数据更新
-const handleTableUpdate = (newData: any[]) => {
-  tableData.value = Array.isArray(newData) ? [...newData] : []
-}
 </script>
 
 <template>
