@@ -82,7 +82,7 @@
     "turbo": "catalog:",
     "typescript": "catalog:",
     "unbuild": "catalog:",
-    "unplugin-vue-components": "^0.27.5",
+    "unplugin-vue-components": "^0.28.0",
     "vite": "catalog:",
     "vitest": "catalog:",
     "vue": "catalog:",
@@ -120,6 +120,6 @@
     "@lljj/vue3-form-ant": "^1.19.0",
     "@lljj/vue3-form-element": "^1.19.0",
     "ant-design-vue": "^4.2.6",
-    "antd": "^5.22.3"
+    "antd": "^5.22.5"
   }
 }
