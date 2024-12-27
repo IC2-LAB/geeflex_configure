@@ -1,26 +1,26 @@
 <script lang="ts" setup>
-import { Page } from '@vben/common-ui';
+import { Page } from '@vben/common-ui'
 
-import { Button, Card, message, notification, Space } from 'ant-design-vue';
+import { Button, Card, message, notification, Space } from 'ant-design-vue'
 
-type NotificationType = 'error' | 'info' | 'success' | 'warning';
+type NotificationType = 'error' | 'info' | 'success' | 'warning'
 
 function info() {
-  message.info('How many roads must a man walk down');
+  message.info('How many roads must a man walk down')
 }
 
 function error() {
   message.error({
     content: 'Once upon a time you dressed so fine',
     duration: 2500,
-  });
+  })
 }
 
 function warning() {
-  message.warning('How many roads must a man walk down');
+  message.warning('How many roads must a man walk down')
 }
 function success() {
-  message.success('Cause you walked hand in hand With another man in my place');
+  message.success('Cause you walked hand in hand With another man in my place')
 }
 
 function notify(type: NotificationType) {
@@ -28,7 +28,7 @@ function notify(type: NotificationType) {
     duration: 2500,
     message: '说点啥呢',
     type,
-  });
+  })
 }
 </script>
 

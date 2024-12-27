@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 
 import {
   EchartsUI,
   type EchartsUIType,
   useEcharts,
-} from '@vben/plugins/echarts';
+} from '@vben/plugins/echarts'
 
-const chartRef = ref<EchartsUIType>();
-const { renderEcharts } = useEcharts(chartRef);
+const chartRef = ref<EchartsUIType>()
+const { renderEcharts } = useEcharts(chartRef)
 
 onMounted(() => {
   renderEcharts({
@@ -91,8 +91,8 @@ onMounted(() => {
         type: 'value',
       },
     ],
-  });
-});
+  })
+})
 </script>
 
 <template>

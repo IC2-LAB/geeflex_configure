@@ -1,23 +1,23 @@
-import type { Recordable, UserInfo } from '@vben/types';
+import type { Recordable, UserInfo } from '@vben/types'
 
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants';
-import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
+import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants'
+import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores'
 
-import { notification } from 'ant-design-vue';
-import { defineStore } from 'pinia';
+import { notification } from 'ant-design-vue'
+import { defineStore } from 'pinia'
 
-import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api';
-import { $t } from '#/locales';
+import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api'
+import { $t } from '#/locales'
 
 export const useAuthStore = defineStore('auth', () => {
-  const accessStore = useAccessStore();
-  const userStore = useUserStore();
-  const router = useRouter();
+  const accessStore = useAccessStore()
+  const userStore = useUserStore()
+  const router = useRouter()
 
-  const loginLoading = ref(false);
+  const loginLoading = ref(false)
 
   /**
    * 异步处理登录操作
@@ -29,32 +29,32 @@ export const useAuthStore = defineStore('auth', () => {
     onSuccess?: () => Promise<void> | void,
   ) {
     // 异步处理用户登录操作并获取 accessToken
-    let userInfo: null | UserInfo = null;
+    let userInfo: null | UserInfo = null
     try {
-      loginLoading.value = true;
-      const { accessToken } = await loginApi(params);
+      loginLoading.value = true
+      const { accessToken } = await loginApi(params)
 
       // 如果成功获取到 accessToken
       if (accessToken) {
-        accessStore.setAccessToken(accessToken);
+        accessStore.setAccessToken(accessToken)
 
         // 获取用户信息并存储到 accessStore 中
         const [fetchUserInfoResult, accessCodes] = await Promise.all([
           fetchUserInfo(),
           getAccessCodesApi(),
-        ]);
+        ])
 
-        userInfo = fetchUserInfoResult;
+        userInfo = fetchUserInfoResult
 
-        userStore.setUserInfo(userInfo);
-        accessStore.setAccessCodes(accessCodes);
+        userStore.setUserInfo(userInfo)
+        accessStore.setAccessCodes(accessCodes)
 
         if (accessStore.loginExpired) {
-          accessStore.setLoginExpired(false);
+          accessStore.setLoginExpired(false)
         } else {
           onSuccess
             ? await onSuccess?.()
-            : await router.push(userInfo.homePath || DEFAULT_HOME_PATH);
+            : await router.push(userInfo.homePath || DEFAULT_HOME_PATH)
         }
 
         if (userInfo?.realName) {
@@ -62,26 +62,26 @@ export const useAuthStore = defineStore('auth', () => {
             description: `${$t('authentication.loginSuccessDesc')}:${userInfo?.realName}`,
             duration: 3,
             message: $t('authentication.loginSuccess'),
-          });
+          })
         }
       }
     } finally {
-      loginLoading.value = false;
+      loginLoading.value = false
     }
 
     return {
       userInfo,
-    };
+    }
   }
 
   async function logout(redirect: boolean = true) {
     try {
-      await logoutApi();
+      await logoutApi()
     } catch {
       // 不做任何处理
     }
-    resetAllStores();
-    accessStore.setLoginExpired(false);
+    resetAllStores()
+    accessStore.setLoginExpired(false)
 
     // 回登录页带上当前路由地址
     await router.replace({
@@ -91,18 +91,18 @@ export const useAuthStore = defineStore('auth', () => {
             redirect: encodeURIComponent(router.currentRoute.value.fullPath),
           }
         : {},
-    });
+    })
   }
 
   async function fetchUserInfo() {
-    let userInfo: null | UserInfo = null;
-    userInfo = await getUserInfoApi();
-    userStore.setUserInfo(userInfo);
-    return userInfo;
+    let userInfo: null | UserInfo = null
+    userInfo = await getUserInfoApi()
+    userStore.setUserInfo(userInfo)
+    return userInfo
   }
 
   function $reset() {
-    loginLoading.value = false;
+    loginLoading.value = false
   }
 
   return {
@@ -111,5 +111,5 @@ export const useAuthStore = defineStore('auth', () => {
     fetchUserInfo,
     loginLoading,
     logout,
-  };
-});
+  }
+})
