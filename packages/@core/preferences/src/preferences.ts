@@ -1,42 +1,42 @@
-import type { DeepPartial } from '@vben-core/typings';
+import type { DeepPartial } from '@vben-core/typings'
 
-import type { InitialOptions, Preferences } from './types';
+import type { InitialOptions, Preferences } from './types'
 
-import { markRaw, reactive, readonly, watch } from 'vue';
+import { markRaw, reactive, readonly, watch } from 'vue'
 
-import { StorageManager } from '@vben-core/shared/cache';
-import { isMacOs, merge } from '@vben-core/shared/utils';
+import { StorageManager } from '@vben-core/shared/cache'
+import { isMacOs, merge } from '@vben-core/shared/utils'
 
 import {
   breakpointsTailwind,
   useBreakpoints,
   useDebounceFn,
-} from '@vueuse/core';
+} from '@vueuse/core'
 
-import { defaultPreferences } from './config';
-import { updateCSSVariables } from './update-css-variables';
+import { defaultPreferences } from './config'
+import { updateCSSVariables } from './update-css-variables'
 
-const STORAGE_KEY = 'preferences';
-const STORAGE_KEY_LOCALE = `${STORAGE_KEY}-locale`;
-const STORAGE_KEY_THEME = `${STORAGE_KEY}-theme`;
+const STORAGE_KEY = 'preferences'
+const STORAGE_KEY_LOCALE = `${STORAGE_KEY}-locale`
+const STORAGE_KEY_THEME = `${STORAGE_KEY}-theme`
 
 class PreferenceManager {
-  private cache: null | StorageManager = null;
+  private cache: null | StorageManager = null
   // private flattenedState: Flatten<Preferences>;
-  private initialPreferences: Preferences = defaultPreferences;
-  private isInitialized: boolean = false;
-  private savePreferences: (preference: Preferences) => void;
+  private initialPreferences: Preferences = defaultPreferences
+  private isInitialized: boolean = false
+  private savePreferences: (preference: Preferences) => void
   private state: Preferences = reactive<Preferences>({
     ...this.loadPreferences(),
-  });
+  })
   constructor() {
-    this.cache = new StorageManager();
+    this.cache = new StorageManager()
 
     // 避免频繁的操作缓存
     this.savePreferences = useDebounceFn(
       (preference: Preferences) => this._savePreferences(preference),
       150,
-    );
+    )
   }
 
   /**
@@ -44,9 +44,9 @@ class PreferenceManager {
    * @param {Preferences} preference - 需要保存的偏好设置
    */
   private _savePreferences(preference: Preferences) {
-    this.cache?.setItem(STORAGE_KEY, preference);
-    this.cache?.setItem(STORAGE_KEY_LOCALE, preference.app.locale);
-    this.cache?.setItem(STORAGE_KEY_THEME, preference.theme.mode);
+    this.cache?.setItem(STORAGE_KEY, preference)
+    this.cache?.setItem(STORAGE_KEY_LOCALE, preference.app.locale)
+    this.cache?.setItem(STORAGE_KEY_THEME, preference.theme.mode)
   }
 
   /**
@@ -55,30 +55,30 @@ class PreferenceManager {
    * @param {DeepPartial<Preferences>} updates - 部分更新的偏好设置
    */
   private handleUpdates(updates: DeepPartial<Preferences>) {
-    const themeUpdates = updates.theme || {};
-    const appUpdates = updates.app || {};
+    const themeUpdates = updates.theme || {}
+    const appUpdates = updates.app || {}
     if (themeUpdates && Object.keys(themeUpdates).length > 0) {
-      updateCSSVariables(this.state);
+      updateCSSVariables(this.state)
     }
 
     if (
       Reflect.has(appUpdates, 'colorGrayMode') ||
       Reflect.has(appUpdates, 'colorWeakMode')
     ) {
-      this.updateColorMode(this.state);
+      this.updateColorMode(this.state)
     }
   }
 
   private initPlatform() {
-    const dom = document.documentElement;
-    dom.dataset.platform = isMacOs() ? 'macOs' : 'window';
+    const dom = document.documentElement
+    dom.dataset.platform = isMacOs() ? 'macOs' : 'window'
   }
 
   /**
    *  从缓存中加载偏好设置。如果缓存中没有找到对应的偏好设置，则返回默认偏好设置。
    */
   private loadCachedPreferences() {
-    return this.cache?.getItem<Preferences>(STORAGE_KEY);
+    return this.cache?.getItem<Preferences>(STORAGE_KEY)
   }
 
   /**
@@ -86,7 +86,7 @@ class PreferenceManager {
    * @returns {Preferences} 加载的偏好设置
    */
   private loadPreferences(): Preferences {
-    return this.loadCachedPreferences() || { ...defaultPreferences };
+    return this.loadCachedPreferences() || { ...defaultPreferences }
   }
 
   /**
@@ -94,21 +94,21 @@ class PreferenceManager {
    */
   private setupWatcher() {
     if (this.isInitialized) {
-      return;
+      return
     }
 
     // 监听断点，判断是否移动端
-    const breakpoints = useBreakpoints(breakpointsTailwind);
-    const isMobile = breakpoints.smaller('md');
+    const breakpoints = useBreakpoints(breakpointsTailwind)
+    const isMobile = breakpoints.smaller('md')
     watch(
       () => isMobile.value,
       (val) => {
         this.updatePreferences({
           app: { isMobile: val },
-        });
+        })
       },
       { immediate: true },
-    );
+    )
 
     // 监听系统主题偏好设置变化
     window
@@ -116,8 +116,8 @@ class PreferenceManager {
       .addEventListener('change', ({ matches: isDark }) => {
         this.updatePreferences({
           theme: { mode: isDark ? 'dark' : 'light' },
-        });
-      });
+        })
+      })
   }
 
   /**
@@ -126,31 +126,31 @@ class PreferenceManager {
    */
   private updateColorMode(preference: Preferences) {
     if (preference.app) {
-      const { colorGrayMode, colorWeakMode } = preference.app;
-      const dom = document.documentElement;
-      const COLOR_WEAK = 'invert-mode';
-      const COLOR_GRAY = 'grayscale-mode';
+      const { colorGrayMode, colorWeakMode } = preference.app
+      const dom = document.documentElement
+      const COLOR_WEAK = 'invert-mode'
+      const COLOR_GRAY = 'grayscale-mode'
       colorWeakMode
         ? dom.classList.add(COLOR_WEAK)
-        : dom.classList.remove(COLOR_WEAK);
+        : dom.classList.remove(COLOR_WEAK)
       colorGrayMode
         ? dom.classList.add(COLOR_GRAY)
-        : dom.classList.remove(COLOR_GRAY);
+        : dom.classList.remove(COLOR_GRAY)
     }
   }
 
   clearCache() {
-    [STORAGE_KEY, STORAGE_KEY_LOCALE, STORAGE_KEY_THEME].forEach((key) => {
-      this.cache?.removeItem(key);
-    });
+    ;[STORAGE_KEY, STORAGE_KEY_LOCALE, STORAGE_KEY_THEME].forEach((key) => {
+      this.cache?.removeItem(key)
+    })
   }
 
   public getInitialPreferences() {
-    return this.initialPreferences;
+    return this.initialPreferences
   }
 
   public getPreferences() {
-    return readonly(this.state);
+    return readonly(this.state)
   }
 
   /**
@@ -161,12 +161,12 @@ class PreferenceManager {
   public async initPreferences({ namespace, overrides }: InitialOptions) {
     // 是否初始化过
     if (this.isInitialized) {
-      return;
+      return
     }
     // 初始化存储管理器
-    this.cache = new StorageManager({ prefix: namespace });
+    this.cache = new StorageManager({ prefix: namespace })
     // 合并初始偏好设置
-    this.initialPreferences = merge({}, overrides, defaultPreferences);
+    this.initialPreferences = merge({}, overrides, defaultPreferences)
 
     // 加载并合并当前存储的偏好设置
     const mergedPreference = merge(
@@ -174,16 +174,16 @@ class PreferenceManager {
       // overrides,
       this.loadCachedPreferences() || {},
       this.initialPreferences,
-    );
+    )
 
     // 更新偏好设置
-    this.updatePreferences(mergedPreference);
+    this.updatePreferences(mergedPreference)
 
-    this.setupWatcher();
+    this.setupWatcher()
 
-    this.initPlatform();
+    this.initPlatform()
     // 标记为已初始化
-    this.isInitialized = true;
+    this.isInitialized = true
   }
 
   /**
@@ -199,14 +199,14 @@ class PreferenceManager {
    */
   resetPreferences() {
     // 将状态重置为初始偏好设置
-    Object.assign(this.state, this.initialPreferences);
+    Object.assign(this.state, this.initialPreferences)
     // 保存重置后的偏好设置
-    this.savePreferences(this.state);
+    this.savePreferences(this.state)
     // 从存储中移除偏好设置项
-    [STORAGE_KEY, STORAGE_KEY_THEME, STORAGE_KEY_LOCALE].forEach((key) => {
-      this.cache?.removeItem(key);
-    });
-    this.updatePreferences(this.state);
+    ;[STORAGE_KEY, STORAGE_KEY_THEME, STORAGE_KEY_LOCALE].forEach((key) => {
+      this.cache?.removeItem(key)
+    })
+    this.updatePreferences(this.state)
   }
 
   /**
@@ -214,15 +214,15 @@ class PreferenceManager {
    * @param updates - 要更新的偏好设置
    */
   public updatePreferences(updates: DeepPartial<Preferences>) {
-    const mergedState = merge({}, updates, markRaw(this.state));
+    const mergedState = merge({}, updates, markRaw(this.state))
 
-    Object.assign(this.state, mergedState);
+    Object.assign(this.state, mergedState)
 
     // 根据更新的键值执行相应的操作
-    this.handleUpdates(updates);
-    this.savePreferences(this.state);
+    this.handleUpdates(updates)
+    this.savePreferences(this.state)
   }
 }
 
-const preferencesManager = new PreferenceManager();
-export { PreferenceManager, preferencesManager };
+const preferencesManager = new PreferenceManager()
+export { PreferenceManager, preferencesManager }

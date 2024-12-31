@@ -4,17 +4,24 @@ import type { ColumnType } from '#/typing'
 import { ref } from 'vue'
 
 import { parser } from '#/data/index'
-import originData from '#/data/originData.json'
 import schemaData from '#/data/schemaData.json'
 import { $t } from '#/locales'
+import { useCaseStore } from '#/store'
 import CustomObj from '#/views/_components/CustomObj.vue'
 
+const caseStore = useCaseStore()
+// const caseName = route.params.caseName as string
+const caseName = 'ENB-LTE-NB'
+const caseData = caseStore.getCaseByName(caseName)
 const columns = ref<ColumnType[]>([
   { title: $t('configuration.meta.field'), dataIndex: 'key', width: '30%' },
   { title: $t('configuration.meta.value'), dataIndex: 'value' },
 ])
 
-const tableData = ref(parser(schemaData.properties, originData))
+if (!caseData) {
+  throw new Error('Case not found')
+}
+const tableData = ref(parser(schemaData.properties, caseData))
 
 // 处理表格数据更新
 const handleTableUpdate = (newData: any[]) => {

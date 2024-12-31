@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { Column, ColumnType } from '#/typing'
+
 import { h } from 'vue'
 
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons-vue'
@@ -10,8 +12,8 @@ import CustomInput from './CustomInput.vue'
 import CustomInputNumber from './CustomInputNumber.vue'
 
 interface TableProps {
-  table: any[]
-  columns: any[]
+  table: Column[]
+  columns: ColumnType[]
 }
 
 const props = defineProps<TableProps>()
@@ -27,7 +29,7 @@ const handleValueChange = (record: any, value: any) => {
 
 // 展开图标
 const expandIcon = (propsval: any) => {
-  if (propsval.record?.hasChildren) {
+  if (propsval.record?.hasChild) {
     return h(
       'span',
       {

@@ -2,36 +2,36 @@
 import type {
   RouteLocationNormalizedLoaded,
   RouteLocationNormalizedLoadedGeneric,
-} from 'vue-router';
+} from 'vue-router'
 
-import { type VNode } from 'vue';
-import { RouterView } from 'vue-router';
+import { type VNode } from 'vue'
+import { RouterView } from 'vue-router'
 
-import { preferences, usePreferences } from '@vben/preferences';
-import { storeToRefs, useTabbarStore } from '@vben/stores';
+import { preferences, usePreferences } from '@vben/preferences'
+import { storeToRefs, useTabbarStore } from '@vben/stores'
 
-import { IFrameRouterView } from '../../iframe';
+import { IFrameRouterView } from '../../iframe'
 
-defineOptions({ name: 'LayoutContent' });
+defineOptions({ name: 'LayoutContent' })
 
-const tabbarStore = useTabbarStore();
-const { keepAlive } = usePreferences();
+const tabbarStore = useTabbarStore()
+const { keepAlive } = usePreferences()
 
 const { getCachedTabs, getExcludeCachedTabs, renderRouteView } =
-  storeToRefs(tabbarStore);
+  storeToRefs(tabbarStore)
 
 // 页面切换动画
 function getTransitionName(_route: RouteLocationNormalizedLoaded) {
   // 如果偏好设置未设置，则不使用动画
-  const { tabbar, transition } = preferences;
-  const transitionName = transition.name;
+  const { tabbar, transition } = preferences
+  const transitionName = transition.name
   if (!transitionName || !transition.enable) {
-    return;
+    return
   }
 
   // 标签页未启用或者未开启缓存，则使用全局配置动画
   if (!tabbar.enable || !keepAlive) {
-    return transitionName;
+    return transitionName
   }
 
   // 如果页面已经加载过，则不使用动画
@@ -42,7 +42,7 @@ function getTransitionName(_route: RouteLocationNormalizedLoaded) {
   // const inTabs = getCachedTabs.value.includes(route.name as string);
 
   // return inTabs && route.meta.loaded ? undefined : transitionName;
-  return transitionName;
+  return transitionName
 }
 
 /**
@@ -57,32 +57,32 @@ function transformComponent(
   if (!component) {
     console.error(
       'Component view not found，please check the route configuration',
-    );
-    return undefined;
+    )
+    return undefined
   }
 
-  const routeName = route.name as string;
+  const routeName = route.name as string
   // 如果组件没有 name，则直接返回
   if (!routeName) {
-    return component;
+    return component
   }
-  const componentName = (component?.type as any)?.name;
+  const componentName = (component?.type as any)?.name
 
   // 已经设置过 name，则直接返回
   if (componentName) {
-    return component;
+    return component
   }
 
   // componentName 与 routeName 一致，则直接返回
   if (componentName === routeName) {
-    return component;
+    return component
   }
 
   // 设置 name
-  component.type ||= {};
-  (component.type as any).name = routeName;
+  component.type ||= {}
+  ;(component.type as any).name = routeName
 
-  return component;
+  return component
 }
 </script>
 

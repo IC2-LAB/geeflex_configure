@@ -1,6 +1,6 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import { filterTree, mapTree } from '@vben-core/shared/utils';
+import { filterTree, mapTree } from '@vben-core/shared/utils'
 
 /**
  * 动态生成路由 - 前端方式
@@ -12,20 +12,20 @@ async function generateRoutesByFrontend(
 ): Promise<RouteRecordRaw[]> {
   // 根据角色标识过滤路由表,判断当前用户是否拥有指定权限
   const finalRoutes = filterTree(routes, (route) => {
-    return hasAuthority(route, roles);
-  });
+    return hasAuthority(route, roles)
+  })
 
   if (!forbiddenComponent) {
-    return finalRoutes;
+    return finalRoutes
   }
 
   // 如果有禁止访问的页面，将禁止访问的页面替换为403页面
   return mapTree(finalRoutes, (route) => {
     if (menuHasVisibleWithForbidden(route)) {
-      route.component = forbiddenComponent;
+      route.component = forbiddenComponent
     }
-    return route;
-  });
+    return route
+  })
 }
 
 /**
@@ -34,13 +34,13 @@ async function generateRoutesByFrontend(
  * @param access
  */
 function hasAuthority(route: RouteRecordRaw, access: string[]) {
-  const authority = route.meta?.authority;
+  const authority = route.meta?.authority
   if (!authority) {
-    return true;
+    return true
   }
-  const canAccess = access.some((value) => authority.includes(value));
+  const canAccess = access.some((value) => authority.includes(value))
 
-  return canAccess || (!canAccess && menuHasVisibleWithForbidden(route));
+  return canAccess || (!canAccess && menuHasVisibleWithForbidden(route))
 }
 
 /**
@@ -52,7 +52,7 @@ function menuHasVisibleWithForbidden(route: RouteRecordRaw) {
     !!route.meta?.authority &&
     Reflect.has(route.meta || {}, 'menuVisibleWithForbidden') &&
     !!route.meta?.menuVisibleWithForbidden
-  );
+  )
 }
 
-export { generateRoutesByFrontend, hasAuthority };
+export { generateRoutesByFrontend, hasAuthority }

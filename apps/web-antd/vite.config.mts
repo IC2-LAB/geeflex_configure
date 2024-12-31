@@ -16,7 +16,8 @@ export default defineConfig(async () => {
           '/case': {
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/case/, ''),
-            target: 'http://62.234.192.247:10009',
+            target: 'http://127.0.0.1:10009/',
+            ws: false,
           },
         },
       },

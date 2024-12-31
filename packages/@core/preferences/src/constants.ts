@@ -1,10 +1,10 @@
-import type { BuiltinThemeType } from '@vben-core/typings';
+import type { BuiltinThemeType } from '@vben-core/typings'
 
 interface BuiltinThemePreset {
-  color: string;
-  darkPrimaryColor?: string;
-  primaryColor?: string;
-  type: BuiltinThemeType;
+  color: string
+  darkPrimaryColor?: string
+  primaryColor?: string
+  type: BuiltinThemeType
 }
 
 const BUILT_IN_THEME_PRESETS: BuiltinThemePreset[] = [
@@ -79,10 +79,10 @@ const BUILT_IN_THEME_PRESETS: BuiltinThemePreset[] = [
     color: '',
     type: 'custom',
   },
-];
+]
 
-export const COLOR_PRESETS = [...BUILT_IN_THEME_PRESETS].slice(0, 7);
+export const COLOR_PRESETS = [...BUILT_IN_THEME_PRESETS].slice(0, 7)
 
-export { BUILT_IN_THEME_PRESETS };
+export { BUILT_IN_THEME_PRESETS }
 
-export type { BuiltinThemePreset };
+export type { BuiltinThemePreset }

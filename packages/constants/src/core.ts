@@ -6,7 +6,7 @@ export const LOGIN_PATH = '/auth/login'
 /**
  * @zh_CN 默认首页地址
  */
-export const DEFAULT_HOME_PATH = '/configuration/table'
+export const DEFAULT_HOME_PATH = '/test/ENB-LTE-NB'
 
 export interface LanguageOption {
   label: string

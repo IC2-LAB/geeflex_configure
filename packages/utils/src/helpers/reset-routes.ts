@@ -1,6 +1,6 @@
-import type { Router, RouteRecordName, RouteRecordRaw } from 'vue-router';
+import type { Router, RouteRecordName, RouteRecordRaw } from 'vue-router'
 
-import { traverseTreeValues } from '@vben-core/shared/utils';
+import { traverseTreeValues } from '@vben-core/shared/utils'
 
 /**
  * @zh_CN 重置所有路由，如有指定白名单除外
@@ -15,17 +15,17 @@ export function resetStaticRoutes(router: Router, routes: RouteRecordRaw[]) {
     if (!route.name) {
       console.warn(
         `The route with the path ${route.path} needs to have the field name specified.`,
-      );
+      )
     }
-    return route.name;
-  });
+    return route.name
+  })
 
-  const { getRoutes, hasRoute, removeRoute } = router;
-  const allRoutes = getRoutes();
+  const { getRoutes, hasRoute, removeRoute } = router
+  const allRoutes = getRoutes()
   allRoutes.forEach(({ name }) => {
     // 存在于路由表且非白名单才需要删除
     if (name && !staticRouteNames.includes(name) && hasRoute(name)) {
-      removeRoute(name);
+      removeRoute(name)
     }
-  });
+  })
 }

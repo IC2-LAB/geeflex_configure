@@ -1,14 +1,14 @@
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { preferences, updatePreferences } from '@vben/preferences';
-import { useAccessStore, useUserStore } from '@vben/stores';
+import { preferences, updatePreferences } from '@vben/preferences'
+import { useAccessStore, useUserStore } from '@vben/stores'
 
 function useAccess() {
-  const accessStore = useAccessStore();
-  const userStore = useUserStore();
+  const accessStore = useAccessStore()
+  const userStore = useUserStore()
   const accessMode = computed(() => {
-    return preferences.app.accessMode;
-  });
+    return preferences.app.accessMode
+  })
 
   /**
    * 基于角色判断是否有权限
@@ -16,9 +16,9 @@ function useAccess() {
    * @param roles
    */
   function hasAccessByRoles(roles: string[]) {
-    const userRoleSet = new Set(userStore.userRoles);
-    const intersection = roles.filter((item) => userRoleSet.has(item));
-    return intersection.length > 0;
+    const userRoleSet = new Set(userStore.userRoles)
+    const intersection = roles.filter((item) => userRoleSet.has(item))
+    return intersection.length > 0
   }
 
   /**
@@ -27,10 +27,10 @@ function useAccess() {
    * @param codes
    */
   function hasAccessByCodes(codes: string[]) {
-    const userCodesSet = new Set(accessStore.accessCodes);
+    const userCodesSet = new Set(accessStore.accessCodes)
 
-    const intersection = codes.filter((item) => userCodesSet.has(item));
-    return intersection.length > 0;
+    const intersection = codes.filter((item) => userCodesSet.has(item))
+    return intersection.length > 0
   }
 
   async function toggleAccessMode() {
@@ -39,7 +39,7 @@ function useAccess() {
         accessMode:
           preferences.app.accessMode === 'frontend' ? 'backend' : 'frontend',
       },
-    });
+    })
   }
 
   return {
@@ -47,7 +47,7 @@ function useAccess() {
     hasAccessByCodes,
     hasAccessByRoles,
     toggleAccessMode,
-  };
+  }
 }
 
-export { useAccess };
+export { useAccess }

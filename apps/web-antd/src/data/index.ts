@@ -1,34 +1,35 @@
-export const parser = (schema: any, data: any) => {
-  const resTable = []
+import type { Column } from '#/typing'
 
-  Object.entries(data).forEach(([key, value]) => {
+export const parser = (schema: object, data: object) => {
+  const resTable: Column[] = []
+
+  for (const key in data) {
+    const value = data[key]
     const currentSchema = schema[key]
     if (!currentSchema) return
 
-    const res: any = {
+    const res: Column = {
       key,
       type: currentSchema.type,
-      hasChildren: false,
-      child: false,
+      hasChild: false,
     }
 
     if (Array.isArray(value)) {
       if (currentSchema.items && currentSchema.items.type === 'object') {
         // 处理对象数组
-        res.hasChildren = true
-        res.child = true
+        res.hasChild = true
         res.type = 'array'
         res.childrenColumn = [
           { title: '字段', dataIndex: 'key', width: '30%' },
           { title: '值', dataIndex: 'value' },
         ]
-        res.childrenTable = value.map((item: any) => {
+        res.childrenTable = value.map((item: object): Column => {
           const itemSchema = currentSchema.items.properties
           const parsedItems = parser(itemSchema, item)
           return {
+            key: currentSchema.items,
             type: 'object',
-            hasChildren: true,
-            child: true,
+            hasChild: true,
             childrenColumn: [
               { title: '字段', dataIndex: 'key', width: '30%' },
               { title: '值', dataIndex: 'value' },
@@ -47,8 +48,7 @@ export const parser = (schema: any, data: any) => {
       }
     } else if (typeof value === 'object' && value !== null) {
       // 处理对象
-      res.hasChildren = true
-      res.child = true
+      res.hasChild = true
       res.type = 'object'
       res.childrenColumn = [
         { title: '字段', dataIndex: 'key', width: '30%' },
@@ -59,10 +59,8 @@ export const parser = (schema: any, data: any) => {
       // 处理基本类型
       res.value = value
     }
-
     resTable.push(res)
-  })
-
+  }
   return resTable
 }
 

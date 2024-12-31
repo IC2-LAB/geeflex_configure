@@ -1,21 +1,16 @@
-import { requestClient } from '#/api/request'
+import type { ApiResp, Case, CaseData } from '#/typing'
 
-type Case = {
-  id: string
-  name: string
-  path: string
-}
-
-type CaseData = {
-  data: object
-  name: string
-}
+import { baseRequestClient } from '#/api/request'
 
 /**
  * 获取所有用例
  */
 export async function getCases(): Promise<Case[]> {
-  return requestClient.get<Case[]>('/case/case')
+  const resp = await baseRequestClient.get<ApiResp<Case[]>>('/case/case')
+  if (!resp.data.data) {
+    return []
+  }
+  return resp.data.data
 }
 
 /**
@@ -25,5 +20,11 @@ export async function getCases(): Promise<Case[]> {
  * @example
  */
 export async function getCase(id: string): Promise<CaseData> {
-  return requestClient.get<CaseData>(`/case/case/${id}`)
+  const resp = await baseRequestClient.get<ApiResp<CaseData>>(
+    `/case/case/${id}`,
+  )
+  if (!resp.data.data) {
+    throw new Error('用例不存在')
+  }
+  return resp.data.data
 }

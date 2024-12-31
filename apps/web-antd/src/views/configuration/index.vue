@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useVbenForm } from '#/adapter/form';
-import { $t } from '#/locales';
+import { useVbenForm } from '#/adapter/form'
+import { $t } from '#/locales'
 
 const [BaseForm] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -59,7 +59,7 @@ const [BaseForm] = useVbenForm({
     },
   ],
   wrapperClass: 'grid-cols-1 md:grid-cols-2',
-});
+})
 </script>
 
 <template>
