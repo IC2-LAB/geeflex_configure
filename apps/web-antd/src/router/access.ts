@@ -60,6 +60,22 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
           },
           children,
         },
+        {
+          component: 'BasicLayout',
+          path: '/sat',
+          name: 'SAT',
+          meta: {
+            title: 'SAT',
+            icon: 'line-md:compass-filled',
+          },
+          children: [
+            {
+              name: 'SAT-child',
+              path: '/sat/index',
+              component: 'satellite/sat.vue',
+            },
+          ],
+        },
       ]
       return testCaseMenu
     },
