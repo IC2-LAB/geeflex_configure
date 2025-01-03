@@ -1018,7 +1018,11 @@ importers:
         specifier: 'catalog:'
         version: 1.0.7
 
-  packages/@core/base/design: {}
+  packages/@core/base/design:
+    dependencies:
+      '@vben-core/design':
+        specifier: 'file:'
+        version: 'link:'
 
   packages/@core/base/icons:
     dependencies:

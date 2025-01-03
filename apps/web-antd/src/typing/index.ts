@@ -27,12 +27,11 @@ export interface Column {
 export interface Case {
   id: string
   name: string
-  path: string
 }
 
 export interface CaseData {
-  data: object
-  name: string
+  case_data: object
+  schema: object
 }
 
 /* API types */

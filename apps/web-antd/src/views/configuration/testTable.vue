@@ -4,7 +4,7 @@ import type { ColumnType } from '#/typing'
 import { ref } from 'vue'
 
 import { parser } from '#/data/index'
-import schemaData from '#/data/schemaData.json'
+// import schemaData from '#/data/schemaData.json'
 import { $t } from '#/locales'
 import { useCaseStore } from '#/store'
 import CustomObj from '#/views/_components/CustomObj.vue'
@@ -21,7 +21,7 @@ const columns = ref<ColumnType[]>([
 if (!caseData) {
   throw new Error('Case not found')
 }
-const tableData = ref(parser(schemaData.properties, caseData))
+const tableData = ref(parser(caseData.schema.properties, caseData.case_data))
 
 // 处理表格数据更新
 const handleTableUpdate = (newData: any[]) => {
