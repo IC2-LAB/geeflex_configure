@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 
 // import * as Cesium from 'cesium'
 
@@ -10,8 +10,10 @@ window.CESIUM_BASE_URL = '/Cesium'
 Cesium.Ion.defaultAccessToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5OGQxZDAzOC04YzFjLTQwNzMtOGZjMC0zMTRhYzY1N2FkNDAiLCJpZCI6ODMzNTgsImlhdCI6MTY0NTUzNjcyMX0.AREOCiP3UMdHDlvJsCfs0aMWtQqAUxVBWtNqRBLdCPE'
 
+let viewer
+
 onMounted(() => {
-  const viewer = new Cesium.Viewer('cesiumContainer', {
+  viewer = new Cesium.Viewer('cesiumContainer', {
     terrain: Cesium.Terrain.fromWorldTerrain(),
     baseLayer: false,
   })
@@ -22,6 +24,9 @@ onMounted(() => {
       pitch: Cesium.Math.toRadians(-15),
     },
   })
+})
+onUnmounted(() => {
+  viewer.destroy()
 })
 </script>
 <template>

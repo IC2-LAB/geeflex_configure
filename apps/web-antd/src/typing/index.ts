@@ -34,6 +34,14 @@ export interface CaseData {
   schema: object
 }
 
+export interface MenuData {
+  component: string
+  name: string
+  icon: string
+  path: string
+  children?: MenuData[]
+}
+
 /* API types */
 export interface ApplicationApiResp<T> {
   code: number
