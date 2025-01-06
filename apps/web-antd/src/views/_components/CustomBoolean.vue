@@ -1,17 +1,26 @@
 <script lang="ts" setup>
 interface BooleanProps {
   tooltipTitle?: string
+  modelValue: boolean
+  type?: string
 }
 
 const props = withDefaults(defineProps<BooleanProps>(), {
-  tooltipTitle: 'Unknown',
+  tooltipTitle: '布尔值',
+  modelValue: false,
+  type: 'boolean',
 })
 
-const boolVal = defineModel('input')
+const emit = defineEmits<{
+  'update:model-value': [value: boolean]
+}>()
 </script>
 
 <template>
   <a-tooltip :title="props.tooltipTitle" placement="topLeft">
-    <a-switch v-model:checked="boolVal" />
+    <a-switch
+      :checked="props.modelValue"
+      @update:checked="(val) => emit('update:model-value', val)"
+    />
   </a-tooltip>
 </template>

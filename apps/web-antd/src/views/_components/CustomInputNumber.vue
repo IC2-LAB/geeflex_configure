@@ -3,26 +3,30 @@ interface InputNumberProps {
   tooltipTitle?: string
   max?: number
   min?: number
+  modelValue: number
+  type?: string
 }
 
 const props = withDefaults(defineProps<InputNumberProps>(), {
-  tooltipTitle: 'Unknown',
+  tooltipTitle: '数值',
   max: 10,
   min: 0,
+  modelValue: 0,
+  type: 'number',
 })
 
-const iptVal = defineModel('input', {
-  default: 0,
-})
+const emit = defineEmits<{
+  'update:model-value': [value: number]
+}>()
 </script>
 
 <template>
   <a-tooltip :title="props.tooltipTitle" placement="topLeft">
     <a-input-number
-      v-model:value="iptVal"
       :max="props.max"
       :min="props.min"
-      @change="(val) => (iptVal = val)"
+      :value="props.modelValue"
+      @update:value="(val) => emit('update:model-value', val)"
     />
   </a-tooltip>
 </template>

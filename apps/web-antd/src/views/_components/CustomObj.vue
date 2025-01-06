@@ -21,6 +21,11 @@ const emit = defineEmits(['update:table'])
 
 // 处理值变化
 const handleValueChange = (record: any, value: any) => {
+  if (!Array.isArray(props.table)) {
+    console.warn('Table data is not an array')
+    return
+  }
+
   const updatedTable = props.table.map((item) =>
     item === record ? { ...item, ...value } : item,
   )
@@ -69,32 +74,39 @@ const expandIcon = (propsval: any) => {
         <template v-if="!record.hasChildren">
           <template v-if="record.type === 'simple_array'">
             <a-input
-              v-model:value="record.value"
+              :value="Array.isArray(record.value) ? record.value.join(',') : ''"
               placeholder="请输入数组值，用逗号分隔"
-              @change="
+              @update:value="
                 (e) =>
                   handleValueChange(record, {
-                    value: e.target.value
-                      .split(',')
-                      .map((item) => Number(item.trim())),
+                    value: e.split(',').map((item) => Number(item.trim())),
                   })
               "
             />
           </template>
-          <component
-            :is="
-              record.type === 'string'
-                ? CustomInput
-                : record.type === 'number'
-                  ? CustomInputNumber
-                  : record.type === 'boolean'
-                    ? CustomBoolean
-                    : null
-            "
-            v-else
-            v-model:input="record.value"
-            @update:input="(val) => handleValueChange(record, { value: val })"
-          />
+          <template v-else>
+            <CustomInput
+              v-if="record.type === 'string'"
+              :model-value="record.value"
+              @update:model-value="
+                (val) => handleValueChange(record, { value: val })
+              "
+            />
+            <CustomInputNumber
+              v-else-if="record.type === 'number'"
+              :model-value="record.value"
+              @update:model-value="
+                (val) => handleValueChange(record, { value: val })
+              "
+            />
+            <CustomBoolean
+              v-else-if="record.type === 'boolean'"
+              :model-value="record.value"
+              @update:model-value="
+                (val) => handleValueChange(record, { value: val })
+              "
+            />
+          </template>
         </template>
         <template v-else>
           <span class="text-secondary">{{

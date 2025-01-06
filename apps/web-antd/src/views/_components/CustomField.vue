@@ -2,9 +2,10 @@
 interface FieldProps {
   title: string
 }
-const props = defineProps<FieldProps>()
+
+defineProps<FieldProps>()
 </script>
 
 <template>
-  <span>{{ props.title }}</span>
+  <span>{{ title }}</span>
 </template>

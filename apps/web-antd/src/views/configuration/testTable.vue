@@ -1,41 +1,71 @@
 <script lang="ts" setup>
 import type { ColumnType } from '#/typing'
 
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import { parser } from '#/data/index'
-// import schemaData from '#/data/schemaData.json'
 import { $t } from '#/locales'
 import { useCaseStore } from '#/store'
 import CustomObj from '#/views/_components/CustomObj.vue'
 
 const caseStore = useCaseStore()
-// const caseName = route.params.caseName as string
 const caseName = 'ENB-LTE-NB'
-const caseData = caseStore.getCaseByName(caseName)
 const columns = ref<ColumnType[]>([
   { title: $t('configuration.meta.field'), dataIndex: 'key', width: '30%' },
   { title: $t('configuration.meta.value'), dataIndex: 'value' },
 ])
 
-if (!caseData) {
-  throw new Error('Case not found')
+const tableData = ref<any[]>([])
+
+// 初始化数据
+const initData = async () => {
+  try {
+    await caseStore.fetchCases()
+    const caseList = caseStore.cases
+    const targetCase = caseList.find((item) => item.name === caseName)
+
+    if (!targetCase) {
+      throw new Error('Case not found in list')
+    }
+
+    await caseStore.fetchCase(targetCase.id)
+    const caseData = caseStore.getCaseByName(caseName)
+
+    if (!caseData) {
+      throw new Error('Case data not found')
+    }
+
+    const parsedData = parser(caseData.schema.properties, caseData.case_data)
+    tableData.value = Array.isArray(parsedData) ? parsedData : []
+  } catch (error) {
+    console.error('Failed to initialize case data:', error)
+    tableData.value = []
+  }
 }
-const tableData = ref(parser(caseData.schema.properties, caseData.case_data))
 
 // 处理表格数据更新
 const handleTableUpdate = (newData: any[]) => {
-  // 直接赋值，保持引用关系
-  tableData.value = newData
+  if (!Array.isArray(newData)) {
+    console.warn('Invalid table data update: expected array')
+    return
+  }
+  tableData.value = [...newData]
 }
 
-// watch(
-//   tableData,
-//   (newVal) => {
-//     console.log("Table data updated:", newVal);
-//   },
-//   { deep: true }
-// );
+watch(
+  () => tableData.value,
+  (newVal) => {
+    if (Array.isArray(newVal)) {
+      // 使用更合适的日志记录方式或完全移除
+      // console.log("Table data updated:", newVal);
+    }
+  },
+  { deep: true },
+)
+
+onMounted(() => {
+  initData()
+})
 </script>
 
 <template>
