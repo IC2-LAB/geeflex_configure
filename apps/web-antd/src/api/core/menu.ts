@@ -1,10 +1,16 @@
 import type { RouteRecordStringComponent } from '@vben/types'
 
-import { requestClient } from '#/api/request'
+import type { ApiResp, MenuData } from '#/typing'
+
+import { baseRequestClient, requestClient } from '#/api/request'
 
 /**
  * 获取用户所有菜单
  */
 export async function getAllMenusApi() {
   return requestClient.get<RouteRecordStringComponent[]>('/api/menu/all')
+}
+
+export async function getAllMenus() {
+  return baseRequestClient.get<ApiResp<MenuData>>('/case/menu')
 }

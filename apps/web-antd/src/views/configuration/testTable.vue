@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import type { ColumnType } from '#/typing'
 
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { parser } from '#/data/index'
 import { $t } from '#/locales'
@@ -9,7 +10,9 @@ import { useCaseStore } from '#/store'
 import CustomObj from '#/views/_components/CustomObj.vue'
 
 const caseStore = useCaseStore()
-const caseName = 'ENB-LTE-NB'
+const router = useRouter()
+const caseName = router.currentRoute.value.name
+
 const columns = ref<ColumnType[]>([
   { title: $t('configuration.meta.field'), dataIndex: 'key', width: '30%' },
   { title: $t('configuration.meta.value'), dataIndex: 'value' },
