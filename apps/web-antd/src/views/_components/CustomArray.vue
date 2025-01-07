@@ -45,11 +45,15 @@ const handleDelete = (index: number) => {
 
 // 计算表格数据
 const tableData = computed(() => {
-  return props.table.map((item, index) => ({
-    key: index,
-    index,
-    ...item,
-  }))
+  // console.log("CustomArray processing data:", props.table);
+  return props.table.map((item, index) => {
+    // console.log(`Processing array item ${index}:`, item);
+    return {
+      key: index,
+      index,
+      ...item,
+    }
+  })
 })
 </script>
 

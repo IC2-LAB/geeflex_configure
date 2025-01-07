@@ -22,13 +22,22 @@ const emit = defineEmits(['update:table'])
 // 处理值变化
 const handleValueChange = (record: any, value: any) => {
   if (!Array.isArray(props.table)) {
-    console.warn('Table data is not an array')
+    // console.warn("Table data is not an array");
     return
   }
 
-  const updatedTable = props.table.map((item) =>
-    item === record ? { ...item, ...value } : item,
-  )
+  // console.log("Updating record:", record, "with value:", value);
+
+  const updatedTable = props.table.map((item) => {
+    if (item === record) {
+      const newItem = { ...item, ...value }
+      // console.log("Updated item:", newItem);
+      return newItem
+    }
+    return item
+  })
+
+  // console.log("Emitting updated table:", updatedTable);
   emit('update:table', updatedTable)
 }
 
@@ -68,10 +77,18 @@ const expandIcon = (propsval: any) => {
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'key'">
-        <CustomField :title="record.key" />
+        <a-tooltip v-if="record.description" :title="record.description">
+          <CustomField :title="record.key" />
+        </a-tooltip>
+        <CustomField v-else :title="record.key" />
       </template>
       <template v-else-if="column.dataIndex === 'value'">
-        <template v-if="!record.hasChildren">
+        <template v-if="record.hasChild">
+          <span class="text-secondary">{{
+            record.type === 'array' ? '数组' : '对象'
+          }}</span>
+        </template>
+        <template v-else>
           <template v-if="record.type === 'simple_array'">
             <a-input
               :value="Array.isArray(record.value) ? record.value.join(',') : ''"
@@ -107,11 +124,6 @@ const expandIcon = (propsval: any) => {
               "
             />
           </template>
-        </template>
-        <template v-else>
-          <span class="text-secondary">{{
-            record.type === 'array' ? '数组' : '对象'
-          }}</span>
         </template>
       </template>
     </template>
