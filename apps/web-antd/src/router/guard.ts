@@ -1,4 +1,4 @@
-import type { Router, RouteRecordRaw } from 'vue-router'
+import type { Router } from 'vue-router'
 
 import { DEFAULT_HOME_PATH, LOGIN_PATH } from '@vben/constants'
 import { preferences } from '@vben/preferences'
@@ -6,30 +6,30 @@ import { useAccessStore, useUserStore } from '@vben/stores'
 import { startProgress, stopProgress } from '@vben/utils'
 
 import { accessRoutes, coreRouteNames } from '#/router/routes'
-import { useAuthStore, useCaseStore } from '#/store'
+import { useAuthStore } from '#/store'
 
 import { generateAccess } from './access'
 
-export const addCaseRoutes = () => {
-  const caseStore = useCaseStore()
-
-  const children: RouteRecordRaw[] = []
-
-  for (const item of caseStore.cases) {
-    const casePage = {
-      name: item.name,
-      path: `/${item.name}`,
-      component: () => import(`#/views/configuration/testTable.vue`),
-      meta: {
-        icon: 'line-md:compass-filled',
-        title: item.name,
-        ignoreAccess: true,
-      },
-    }
-    children.push(casePage)
-  }
-  return children
-}
+// export const addCaseRoutes = () => {
+//   const caseStore = useCaseStore()
+//
+//   const children: RouteRecordRaw[] = []
+//
+//   for (const item of caseStore.cases) {
+//     const casePage = {
+//       name: item.name,
+//       path: `/${item.name}`,
+//       component: () => import(`#/views/configuration/testTable.vue`),
+//       meta: {
+//         icon: 'line-md:compass-filled',
+//         title: item.name,
+//         ignoreAccess: true,
+//       },
+//     }
+//     children.push(casePage)
+//   }
+//   return children
+// }
 
 /**
  * 通用守卫配置

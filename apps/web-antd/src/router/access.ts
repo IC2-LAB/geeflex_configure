@@ -26,7 +26,7 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
     ...options,
     fetchMenuListAsync: async () => {
       message.loading({
-        content: `${$t('common.loadingMenu')}...`,
+        content: $t('common.loadingMenu'),
         duration: 1.5,
       })
       const testCaseMenu = await getAllMenus()

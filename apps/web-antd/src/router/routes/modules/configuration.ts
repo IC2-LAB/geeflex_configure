@@ -1,6 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-import { $t } from '#/locales'
 import { useCaseStore } from '#/store'
 
 export const addCaseRoutes = () => {
@@ -24,32 +23,32 @@ export const addCaseRoutes = () => {
   return children
 }
 
-const routes: RouteRecordRaw[] = [
-  {
-    component: () => import('#/layouts/basic.vue'),
-    path: '',
-    name: 'Case',
-    // redirect: '/home/index',
-    meta: {
-      title: $t('page.configuration.title'),
-      icon: 'line-md:cog-filled-loop',
-    },
-    // children: addCaseRoutes(),
-    children: [
-      {
-        name: 'ConfigurationIndex',
-        path: '/test/:caseName',
-        component: () => import('#/views/configuration/testTable.vue'),
-        meta: {
-          icon: 'line-md:cog-filled-loop',
-          title: $t('page.configuration.test'),
-          keepAlive: true, // 是否缓存
-          ignoreAccess: true,
-        },
-      },
-    ],
-  },
-]
+// const routes: RouteRecordRaw[] = [
+//  {
+//    component: () => import('#/layouts/basic.vue'),
+//    path: '',
+//    name: 'Case',
+//    // redirect: '/home/index',
+//    meta: {
+//      title: $t('page.configuration.title'),
+//      icon: 'line-md:cog-filled-loop',
+//    },
+//    // children: addCaseRoutes(),
+//    children: [
+//      {
+//        name: 'ConfigurationIndex',
+//        path: '/test/:caseName',
+//        component: () => import('#/views/configuration/testTable.vue'),
+//        meta: {
+//          icon: 'line-md:cog-filled-loop',
+//          title: $t('page.configuration.test'),
+//          keepAlive: true, // 是否缓存
+//          ignoreAccess: true,
+//        },
+//      },
+//    ],
+//  },
+// ]
 /* [
       {
         name: 'ConfigurationIndex',
@@ -94,4 +93,4 @@ const routes: RouteRecordRaw[] = [
       },
     ],*/
 
-export default routes
+export default []
