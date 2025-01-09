@@ -11,7 +11,7 @@ export const addCaseRoutes = () => {
     const casePage = {
       name: item.name,
       path: `/${item.name}`,
-      component: () => import(`#/views/configuration/testTable.vue`),
+      component: () => import(`#/views/configuration/DataTable.vue`),
       meta: {
         icon: 'line-md:compass-filled',
         title: item.name,
