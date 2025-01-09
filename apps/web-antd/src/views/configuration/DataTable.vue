@@ -5,9 +5,11 @@ import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { parser } from '#/data/index'
+import CustomObj from '#/views/_components/CustomObj.vue'
+
+// import schemaData from '#/data/schemaData.json'
 import { $t } from '#/locales'
 import { useCaseStore } from '#/store'
-import CustomObj from '#/views/_components/CustomObj.vue'
 
 const caseStore = useCaseStore()
 const router = useRouter()

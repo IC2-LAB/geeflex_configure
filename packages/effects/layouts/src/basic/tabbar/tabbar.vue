@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-import { useContentMaximize, useTabs } from '@vben/hooks';
-import { preferences } from '@vben/preferences';
-import { useTabbarStore } from '@vben/stores';
-import { TabsToolMore, TabsToolScreen, TabsView } from '@vben-core/tabs-ui';
+import { useContentMaximize, useTabs } from '@vben/hooks'
+import { preferences } from '@vben/preferences'
+import { useTabbarStore } from '@vben/stores'
+import { TabsToolMore, TabsToolScreen, TabsView } from '@vben-core/tabs-ui'
 
-import { useTabbar } from './use-tabbar';
+import { useTabbar } from './use-tabbar'
 
 defineOptions({
   name: 'LayoutTabbar',
-});
+})
 
-defineProps<{ showIcon?: boolean; theme?: string }>();
+defineProps<{ showIcon?: boolean; theme?: string }>()
 
-const route = useRoute();
-const tabbarStore = useTabbarStore();
-const { contentIsMaximize, toggleMaximize } = useContentMaximize();
-const { unpinTab } = useTabs();
+const route = useRoute()
+const tabbarStore = useTabbarStore()
+const { contentIsMaximize, toggleMaximize } = useContentMaximize()
+const { unpinTab } = useTabs()
 
 const {
   createContextMenus,
@@ -26,23 +26,23 @@ const {
   currentTabs,
   handleClick,
   handleClose,
-} = useTabbar();
+} = useTabbar()
 
 const menus = computed(() => {
-  const tab = tabbarStore.getTabByPath(currentActive.value);
-  const menus = createContextMenus(tab);
+  const tab = tabbarStore.getTabByPath(currentActive.value)
+  const menus = createContextMenus(tab)
   return menus.map((item) => {
     return {
       ...item,
       label: item.text,
       value: item.key,
-    };
-  });
-});
+    }
+  })
+})
 
 // 刷新后如果不保持tab状态，关闭其他tab
 if (!preferences.tabbar.persist) {
-  tabbarStore.closeOtherTabs(route);
+  tabbarStore.closeOtherTabs(route)
 }
 </script>
 

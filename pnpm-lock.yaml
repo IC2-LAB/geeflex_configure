@@ -504,9 +504,6 @@ importers:
       antd:
         specifier: ^5.22.3
         version: 5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      cesium:
-        specifier: ^1.124.0
-        version: 1.124.0
     devDependencies:
       '@changesets/changelog-github':
         specifier: 'catalog:'
@@ -683,6 +680,9 @@ importers:
       ant-design-vue:
         specifier: 'catalog:'
         version: 4.2.6(vue@3.5.13(typescript@5.7.2))
+      cesium:
+        specifier: ^1.125.0
+        version: 1.125.0
       dayjs:
         specifier: 'catalog:'
         version: 1.11.13
@@ -2286,12 +2286,12 @@ packages:
     resolution: {integrity: sha512-Z/yiTPj+lDVnF7lWeKCIJzaIkI0vYO87dMpZ4bg4TDrFe4XXLFWL1TbXU27gBP3QccxV9mZICCrnjnYlJjXHOA==}
     engines: {node: '>=6.9.0'}
 
-  '@cesium/engine@13.0.0':
-    resolution: {integrity: sha512-qoDxLVHyWprPMs00i6S7fWraOqAXiwUK3X3ByEJ3mjMO+YRFEKmcgVworUo1i7C0GHQrFqx61HK/AsfbyxlJyg==}
+  '@cesium/engine@13.1.0':
+    resolution: {integrity: sha512-1PX7sMhtgBgaSOtyQ0lTPvG35bMfR1ngtgBZqzNnR67lp+tVv9lNyAg/byBSnijL2b2NJNC2Iec6A6Z/Rj12OA==}
     engines: {node: '>=14.0.0'}
 
-  '@cesium/widgets@10.0.0':
-    resolution: {integrity: sha512-BzgC3L4/7xIZ6pFy5PK1h9yeTtr4hNOH3BwoZbqV87jmuIM3IPEVGwoRrrXe6MOKaIt3BsFqN9Ke7Jk6P+RWlQ==}
+  '@cesium/widgets@10.1.0':
+    resolution: {integrity: sha512-IWT+8cCsnJo1Mtr+xrkdVEZrP88/UqF5oDyDPVmlOJ47MPjUauu93k6LeAwxQQ2CYqqgpFIZbIX19mMfQMwSfA==}
     engines: {node: '>=14.0.0'}
 
   '@changesets/apply-release-plan@7.0.6':
@@ -5003,8 +5003,8 @@ packages:
   caniuse-lite@1.0.30001684:
     resolution: {integrity: sha512-G1LRwLIQjBQoyq0ZJGqGIJUXzJ8irpbjHLpVRXDvBEScFJ9b17sgK6vlx0GAJFE21okD7zXl08rRRUfq6HdoEQ==}
 
-  cesium@1.124.0:
-    resolution: {integrity: sha512-FDfjr7sWLeYkrblW50KXXbe2vsLuKmY6BY/gFDCjntQBdmQs0uWuOhtM0rW+V4510IgqQj4MYLK8CHOOChvA8w==}
+  cesium@1.125.0:
+    resolution: {integrity: sha512-T6V1xKFQOxydJJtG6ammyDOwKMerkGLdxQJLJSLHhhh6VKqpUyp+GXSKjnzlAmpLDjQLF1UkhbJ98WC59am/fA==}
     engines: {node: '>=18.18.0'}
 
   chai@5.1.2:
@@ -11218,7 +11218,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@cesium/engine@13.0.0':
+  '@cesium/engine@13.1.0':
     dependencies:
       '@tweenjs/tween.js': 25.0.0
       '@zip.js/zip.js': 2.7.54
@@ -11240,9 +11240,9 @@ snapshots:
       topojson-client: 3.1.0
       urijs: 1.19.11
 
-  '@cesium/widgets@10.0.0':
+  '@cesium/widgets@10.1.0':
     dependencies:
-      '@cesium/engine': 13.0.0
+      '@cesium/engine': 13.1.0
       nosleep.js: 0.12.0
 
   '@changesets/apply-release-plan@7.0.6':
@@ -14360,10 +14360,10 @@ snapshots:
 
   caniuse-lite@1.0.30001684: {}
 
-  cesium@1.124.0:
+  cesium@1.125.0:
     dependencies:
-      '@cesium/engine': 13.0.0
-      '@cesium/widgets': 10.0.0
+      '@cesium/engine': 13.1.0
+      '@cesium/widgets': 10.1.0
 
   chai@5.1.2:
     dependencies:
