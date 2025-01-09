@@ -480,24 +480,6 @@ importers:
       '@ant-design/icons-vue':
         specifier: ^7.0.1
         version: 7.0.1(vue@3.5.13(typescript@5.6.3))
-      '@designable/formily-antd':
-        specifier: 1.0.0-beta.45
-        version: 1.0.0-beta.45(@formily/antd@2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/core@2.3.2)(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(@formily/shared@2.3.2)(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)
-      '@formily/antd':
-        specifier: ^2.3.2
-        version: 2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)
-      '@formily/core':
-        specifier: ^2.3.2
-        version: 2.3.2
-      '@formily/vue':
-        specifier: ^2.3.2
-        version: 2.3.2(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
-      '@lljj/vue3-form-ant':
-        specifier: ^1.19.0
-        version: 1.19.0
-      '@lljj/vue3-form-element':
-        specifier: ^1.19.0
-        version: 1.19.0
       ant-design-vue:
         specifier: ^4.2.6
         version: 4.2.6(vue@3.5.13(typescript@5.6.3))
@@ -2910,99 +2892,6 @@ packages:
     resolution: {integrity: sha512-WyOx8cJQ+FQus4Mm4uPIZA64gbk3Wxh0so5Lcii0aJifqwoVOlfFtorjLE0Hen4OYyHZMXDWqMmaQemBhgxFRQ==}
     engines: {node: '>=14'}
 
-  '@designable/core@1.0.0-beta.45':
-    resolution: {integrity: sha512-zCN2O9HlVaqcd90KCl1OtsWTBMX4+xcWfew9sqxQfOE9GWc2VENw2IpbHcIsGaEDhklmZZ83vnDrivjwhZMMsw==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@formily/json-schema': ^2.0.2
-      '@formily/path': ^2.0.2
-      '@formily/reactive': ^2.0.2
-
-  '@designable/formily-antd@1.0.0-beta.45':
-    resolution: {integrity: sha512-S++TGMcGBmr02b3z9xqHJj1XVfblxJ39xPiVM3brxZsbFcVNe/tJb6QjkN1P1LCKZN6PDyySpuNzcT5ojglYWA==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@formily/antd': ^2.0.2
-      '@formily/core': ^2.0.2
-      '@formily/react': ^2.0.2
-      '@formily/reactive': ^2.0.2
-      '@formily/shared': ^2.0.2
-      '@types/react': '>=16.8.0 || >=17.0.0'
-      '@types/react-dom': '>=16.8.0 || >=17.0.0'
-      antd: ^4.0.0
-      react: '>=16.8.0 || >=17.0.0'
-      react-dom: '>=16.8.0'
-      react-is: '>=16.8.0 || >=17.0.0'
-
-  '@designable/formily-setters@1.0.0-beta.45':
-    resolution: {integrity: sha512-55FZUdnON1cZH9PxHZlyS6k5dkCU5/XSvkDOQXmL+OLYK+OeovX6I6d4S/hzMpqcq65Qc5DJjYwVoKygkr1jAA==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@formily/antd': ^2.0.2
-      '@formily/core': ^2.0.2
-      '@formily/react': ^2.0.2
-      '@formily/shared': ^2.0.2
-      '@types/react': '>=16.8.0 || >=17.0.0'
-      '@types/react-dom': '>=16.8.0 || >=17.0.0'
-      antd: ^4.0.0
-      react: '>=16.8.0 || >=17.0.0'
-      react-dom: '>=16.8.0'
-      react-is: '>=16.8.0 || >=17.0.0'
-
-  '@designable/formily-transformer@1.0.0-beta.45':
-    resolution: {integrity: sha512-8qr21jzv0wLmXRGBkuANzgXGwLgZZVMeBqyfcEIBWS+XCnsFL3Jte5ggh6icAzv7BWWYkuzXcXVFRrRw6nCX8g==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@formily/core': ^2.0.2
-      '@formily/json-schema': ^2.0.2
-
-  '@designable/react-settings-form@1.0.0-beta.45':
-    resolution: {integrity: sha512-DJS0jxQ0YkIeKHe/CT6BwD5fx810GSs/2vtQv3xbLvuxS3ax+YXhtJyMLCRadnNTxZYjzQMbyYOGbB47gWQdyw==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@formily/antd': ^2.0.2
-      '@formily/core': ^2.0.2
-      '@formily/react': ^2.0.2
-      '@formily/reactive': ^2.0.2
-      '@formily/reactive-react': ^2.0.2
-      '@formily/shared': ^2.0.2
-      antd: ^4.0.0
-
-  '@designable/react@1.0.0-beta.45':
-    resolution: {integrity: sha512-zZQ7cIl+X1ntXCNkeesCeMtLChWbFLsKTNmMVA6gS1wUWIlWb2aFQg/cM3P2JVmu2ovBE5EEEnomC94Nwz390A==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@formily/reactive': ^2.0.2
-      '@formily/reactive-react': ^2.0.2
-      antd: ^4.15.4
-      react: 16.x || 17.x
-
-  '@designable/shared@1.0.0-beta.45':
-    resolution: {integrity: sha512-gHbTp+LlpIOvKg2QX6iq8BotNn98Dnf2/xc2fXJfWz97YlbSDEqYaPiCAQYHGoucAjj1BWYZQFdNar1FdOfR9g==}
-    engines: {npm: '>=3.0.0'}
-
-  '@dnd-kit/accessibility@3.1.1':
-    resolution: {integrity: sha512-2P+YgaXF+gRsIihwwY1gCsQSYnu9Zyj2py8kY5fFvUM1qm2WA2u639R6YNVfU4GWr+ZM5mqEsfHZZLoRONbemw==}
-    peerDependencies:
-      react: '>=16.8.0'
-
-  '@dnd-kit/core@6.3.1':
-    resolution: {integrity: sha512-xkGBRQQab4RLwgXxoqETICr6S5JlogafbhNsidmrkVv2YRs5MLwpjoF2qpiGjQt8S9AoxtIV603s0GIUpY5eYQ==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-
-  '@dnd-kit/sortable@7.0.2':
-    resolution: {integrity: sha512-wDkBHHf9iCi1veM834Gbk1429bd4lHX4RpAwT0y2cHLf246GAvU2sVw/oxWNpPKQNQRQaeGXhAVgrOl1IT+iyA==}
-    peerDependencies:
-      '@dnd-kit/core': ^6.0.7
-      react: '>=16.8.0'
-
-  '@dnd-kit/utilities@3.2.2':
-    resolution: {integrity: sha512-+MKAJEOfaBe5SmV6t34p80MMKhjvUz0vRrvVJbPT0WElzaOJ/1xs+D+KDv+tD/NE5ujfrChEcshd4fLn0wpiqg==}
-    peerDependencies:
-      react: '>=16.8.0'
-
   '@dual-bundle/import-meta-resolve@4.1.0':
     resolution: {integrity: sha512-+nxncfwHM5SgAtrVzgpzJOI1ol0PkumhVo469KCf9lUi21IGcY90G98VuHm9VRrUypmAzawAHO9bs6hqeADaVg==}
 
@@ -3358,106 +3247,6 @@ packages:
   '@floating-ui/vue@1.1.5':
     resolution: {integrity: sha512-ynL1p5Z+woPVSwgMGqeDrx6HrJfGIDzFyESFkyqJKilGW1+h/8yVY29Khn0LaU6wHBRwZ13ntG6reiHWK6jyzw==}
 
-  '@formily/antd@2.3.2':
-    resolution: {integrity: sha512-bNmcvrxOgqu2jYwGv1nuDzd5IKOMISVWBN2kU29iIfDjOgIzopDzYIjSfmJ4LPvnzovYO88EPVz9OCGPCE+dkw==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@ant-design/icons': 4.x
-      '@types/react': '>=16.8.0'
-      '@types/react-dom': '>=16.8.0'
-      antd: <=4.22.8
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-      react-is: '>=16.8.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
-
-  '@formily/core@2.3.2':
-    resolution: {integrity: sha512-qS02mKWDRdm5IYnx3b6L4i/i7oFEBbVotF6B3xdqgbkeSjdzSz81/aJnEr0Sbi3yCgh1FhA0x+QKkpWnE8/GDQ==}
-    engines: {npm: '>=3.0.0'}
-
-  '@formily/grid@2.3.2':
-    resolution: {integrity: sha512-cbPBOZKHT5xp3DIcn+Tsqm9B2VMWDsfnhbGl7qvKza8v7cDn7io2aFp8a7sQTeZVmRT+A8H30LjCAKJS9n6+2w==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      typescript: 4.x || 5.x
-
-  '@formily/json-schema@2.3.2':
-    resolution: {integrity: sha512-DFsdrbxFvdxUtrD5mVRb8USUWJV6KkhSiz83wxA779lgntGDLrwuE0DI2dVg8Vm4dZsK79iB+XhWidaNqH41fQ==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      typescript: '>4.1.5'
-
-  '@formily/path@2.3.2':
-    resolution: {integrity: sha512-KK8h/CupHOs4HIgu9JucqwWvIr8Nbmof++Kby0NdNFHdTN5nAyVzStS8VEPFPGRkQaXV3AH+FVGAxgucmEy4ZA==}
-    engines: {npm: '>=3.0.0'}
-
-  '@formily/react@2.3.2':
-    resolution: {integrity: sha512-p0jCtX2K9b2/OUdXcDGJhRX4gU4zGFXg1uOYd49iqV1EP+XhRa/4OGAz7QMnUP0K/3FVLboqbQS2nMOKY1rrPg==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@types/react': '>=16.8.0'
-      '@types/react-dom': '>=16.8.0'
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-      react-is: '>=16.8.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
-
-  '@formily/reactive-react@2.3.2':
-    resolution: {integrity: sha512-SdlKSDbUzgddasDnuUugWR02AGC426jHhc7UJuUU1W4ORAuYQunqdMu7xB7/aF4OAVCw4j6KECQtIPo4kftkFg==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@types/react': '>=16.8.0'
-      '@types/react-dom': '>=16.8.0'
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-      react-is: '>=16.8.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
-
-  '@formily/reactive-vue@2.3.2':
-    resolution: {integrity: sha512-3zthr5V2uM3tyjvQid4WUy/rK1XgiFangjIiUDHa1OhkGoKh6h8Xi0l2pGVffLFuvpLtWTQdvU3ipDhjHGCBNw==}
-    engines: {npm: '>=3.0.0'}
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-beta.1
-      vue: ^3.5.13
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-
-  '@formily/reactive@2.3.2':
-    resolution: {integrity: sha512-fw9EBWyBNSo3d1diX+HW3v6fBYqmn5zRM+L8le03XGft847LaajCYkjXiZXSzj7v8U4qzjhURIcqVYgmi4OW8g==}
-    engines: {npm: '>=3.0.0'}
-
-  '@formily/shared@2.3.2':
-    resolution: {integrity: sha512-hb8eL28Dqe4WQzGtxC3h7OwG9VPPBXtfKUfmnRkaBMJ8zn2KmdYOP8YnAkwdO2ZMgxtkOl0hku0Ufm2PwP3ziA==}
-    engines: {npm: '>=3.0.0'}
-
-  '@formily/validator@2.3.2':
-    resolution: {integrity: sha512-XoY31kUypHB8MIw9jhp/Pb0fDFan5wPhR9Hgz/HiTPUdpg8l7kxzHRMZieqtL4YbtFzJD4wpk1+XrylILpPGYg==}
-    engines: {npm: '>=3.0.0'}
-
-  '@formily/vue@2.3.2':
-    resolution: {integrity: sha512-DvaQTVZPgGeyYoEnC4llJZdipkVpHmnDkK63VVpFHWnDLS1LQL9FeOEt6Ww1JZoRz4+aNDj8eFupKPn19CtNFw==}
-    engines: {npm: '>=3.0.0'}
-    hasBin: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-beta.1
-      vue: ^3.5.13
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
 
@@ -3494,11 +3283,6 @@ packages:
     resolution: {integrity: sha512-CQnYqLiQD5LOAaXhBrmj1mdL2/NCJvwcC4jtW2Z8ukhThiFkLDkutarTOV2trfc9EXqUqRs0KqXOL9pZ/IyysA==}
     peerDependencies:
       vue: ^3.5.13
-
-  '@icons/material@0.2.4':
-    resolution: {integrity: sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==}
-    peerDependencies:
-      react: '*'
 
   '@internationalized/date@3.6.0':
     resolution: {integrity: sha512-+z6ti+CcJnRlLHok/emGEsWQhe7kfSmEW+/6qCzvKY67YPh7YOBfvc7+/+NXq+zJlbArg30tYpqLjNgcAYv2YQ==}
@@ -3607,21 +3391,6 @@ packages:
   '@jspm/import-map@1.1.0':
     resolution: {integrity: sha512-vmk583YnMi4fmqeXbWIBiyzFu+vqVZ5VCoaa6H4xeSQy5E6JAWtmcq72OAMFTeSTqw7xxHQIJFq2OlHKdUWitQ==}
 
-  '@juggle/resize-observer@3.4.0':
-    resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
-
-  '@lljj/vjsf-utils@1.19.0':
-    resolution: {integrity: sha512-dnW7bmwJdPLFjV3W54TA/9DTcB5WT5ElntNJZfaYbRldZywztmBpBO+JEZ8uTyKSchke1eBXDyP8kC/9wbvjwg==}
-
-  '@lljj/vue3-form-ant@1.19.0':
-    resolution: {integrity: sha512-ljhNsC6O+RH61r2khV15GQHJoMHRh2ahMtNVgAo+FrVOiJjPmcJ3sdmo/RzFLFOxquYwlQkPc83SpWfNw6sqVA==}
-
-  '@lljj/vue3-form-core@1.19.0':
-    resolution: {integrity: sha512-RqnepJ6mHs6lhcAFX/ZF0pa/q1fJaK1Kibhazs3eneGQ2ovMJP5bTUAuKfEaNO+8PKRUQQdrUfZBkuSPs/+nJQ==}
-
-  '@lljj/vue3-form-element@1.19.0':
-    resolution: {integrity: sha512-nGQtLGRYpEdyoDl0Ro7mpO70qX7QPyuX4zwFDx1jn0ufvzSy++OxZ8d5fZblw0SfEjDs1zuVEVYHL1oymTcZeA==}
-
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
 
@@ -3656,18 +3425,6 @@ packages:
 
   '@microsoft/tsdoc@0.15.1':
     resolution: {integrity: sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==}
-
-  '@monaco-editor/loader@1.4.0':
-    resolution: {integrity: sha512-00ioBig0x642hytVspPl7DbQyaSWRaolYie/UFNjoTdvoKPzo6xrXLhTk9ixgIKcLH5b5vDOjVNiGyY+uDCUlg==}
-    peerDependencies:
-      monaco-editor: '>= 0.21.0 < 1'
-
-  '@monaco-editor/react@4.6.0':
-    resolution: {integrity: sha512-RFkU9/i7cN2bsq/iTkurMWOEErmYcY6JiQI3Jn+WeR/FGISH8JbHERjpS9oRuSOPvDMJI0Z8nJeKkbOs9sBYQw==}
-    peerDependencies:
-      monaco-editor: '>= 0.25.0 < 1'
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
   '@netlify/functions@2.8.2':
     resolution: {integrity: sha512-DeoAQh8LuNPvBE4qsKlezjKj0PyXDryOFJfJKo3Z1qZLKzQ21sT314KQKPVjfvw6knqijj+IO+0kHXy/TJiqNA==}
@@ -4301,12 +4058,6 @@ packages:
 
   '@types/qrcode@1.5.5':
     resolution: {integrity: sha512-CdfBi/e3Qk+3Z/fXYShipBT13OJ2fDO2Q2w5CIP5anLTLIndQG9z6P1cnm+8zCWSpm5dnxMFd/uREtb0EXuQzg==}
-
-  '@types/react-dom@19.0.0':
-    resolution: {integrity: sha512-1KfiQKsH1o00p9m5ag12axHQSb3FOU9H20UTrujVSkNhuCrRHiQWFqgEnTNK5ZNfnzZv8UWrnXVqCmCF9fgY3w==}
-
-  '@types/react@19.0.0':
-    resolution: {integrity: sha512-MY3oPudxvMYyesqs/kW1Bh8y9VqSmf+tzqw3ae8a9DZW68pUe3zAdHeI1jc6iAysuRdACnVknHP8AhwD4/dxtg==}
 
   '@types/readdir-glob@1.1.5':
     resolution: {integrity: sha512-raiuEPUYqXu+nvtY2Pe8s8FEmZ3x5yAH4VkLdihcPdalvsHltomrRC9BzuStrJ9yk06470hS0Crw0f1pXqD+Hg==}
@@ -5485,9 +5236,6 @@ packages:
   date-fns@4.1.0:
     resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
-  dateformat@4.6.3:
-    resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
-
   dayjs@1.11.13:
     resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
@@ -6517,9 +6265,6 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
 
-  hoist-non-react-statics@3.3.2:
-    resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
-
   homedir-polyfill@1.0.3:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
@@ -7298,9 +7043,6 @@ packages:
     resolution: {integrity: sha512-EsS89h6l4vbfJEtBZnENTOFk8mCRpY5ru36Xe5bcX1KYIli2mkSHqoFsp5O1wMDvTJJzxe/4THpCTtygjeeGWQ==}
     engines: {node: '>= 10'}
 
-  material-colors@1.2.6:
-    resolution: {integrity: sha512-6qE4B9deFBIa9YSpOc9O0Sgc43zTeVYbgDT5veRKSlB2+ZuHNoVVxA1L/ckMUayV9Ay9y7Z/SZCLcGteW9i7bg==}
-
   mathml-tag-names@2.1.3:
     resolution: {integrity: sha512-APMBEanjybaPzUrfqU0IMU5I0AswKMH7k8OTLs0vvV4KZpExkTkY87nR/zpbuTPj+gARop7aGUbl11pnDfW6xg==}
 
@@ -7469,9 +7211,6 @@ packages:
 
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
-
-  monaco-editor@0.25.2:
-    resolution: {integrity: sha512-5iylzSJevCnzJn9UVsW8yOZ3yHjmAs4TfvH3zsbftKiFKmHG0xirGN6DK9Kk04VSWxYCZZAIafYJoNJJMAU1KA==}
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -8748,11 +8487,6 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  react-color@2.19.3:
-    resolution: {integrity: sha512-LEeGE/ZzNLIsFWa1TMe8y5VYqr7bibneWmvJwm1pCn/eNmrabWDh659JSPn9BuaMpEfU83WTOJfnCcjDZwNQTA==}
-    peerDependencies:
-      react: '*'
-
   react-dom@19.0.0:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
     peerDependencies:
@@ -8764,26 +8498,9 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
-  react-sticky-box@0.9.3:
-    resolution: {integrity: sha512-Y/qO7vTqAvXuRR6G6ZCW4fX2Bz0GZRwiiLTVeZN5CVz9wzs37ev0Xj3KSKF/PzF0jifwATivI4t24qXG8rSz4Q==}
-    peerDependencies:
-      prop-types: ^15.6.2
-      react: ^0.14.0 || ^15.0.0 || ^16.0.0
-
-  react-tiny-popover@6.0.10:
-    resolution: {integrity: sha512-ECMucd701SxWHGa+2YuVvccCxxTjmhomcD0ZYTF+Qmi5qNAj8pdlExFN+k+p1G78QTYIGPGNLocxRb9f6cZ0Mw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-
   react@16.14.0:
     resolution: {integrity: sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==}
     engines: {node: '>=0.10.0'}
-
-  reactcss@1.2.3:
-    resolution: {integrity: sha512-KiwVUcFu1RErkI97ywr8nvx8dNOpT03rbnma0SSalTYjkrPYaEajR4a/MRt6DZ46K6arDRbWMNHF+xH7G7n/8A==}
-    peerDependencies:
-      react: '*'
 
   read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -8897,9 +8614,6 @@ packages:
   repeat-string@1.6.1:
     resolution: {integrity: sha512-PV0dzCYDNfRi1jCDbJzpW7jNNDRuCOG/jI5ctQcGKt/clZD+YcPS3yIlWuTJMmESC8aevCFmWJy5wjAFgNqN6w==}
     engines: {node: '>=0.10'}
-
-  requestidlecallback@0.3.0:
-    resolution: {integrity: sha512-TWHFkT7S9p7IxLC5A1hYmAYQx2Eb9w1skrXmQ+dS1URyvR8tenMLl4lHbqEOUnpEYxNKpkVMXUgknVpBZWXXfQ==}
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -9243,9 +8957,6 @@ packages:
   standard-as-callback@2.1.0:
     resolution: {integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==}
 
-  state-local@1.0.7:
-    resolution: {integrity: sha512-HTEHMNieakEnoe33shBYcZ7NX83ACUjCu8c40iOGEZsngj9zRnkqS9j1pqQPXwobB0ZcVTk27REb7COQ0UR59w==}
-
   statuses@2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
@@ -9552,9 +9263,6 @@ packages:
 
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
-
-  tinycolor2@1.6.0:
-    resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
 
   tinyexec@0.3.1:
     resolution: {integrity: sha512-WiCJLEECkO18gwqIp6+hJg0//p23HXp4S+gGtAKu3mI2F2/sXC4FvHvXvB0zJVVaTPhx1/tOwdbRsa1sOBIKqQ==}
@@ -9870,9 +9578,6 @@ packages:
     resolution: {integrity: sha512-+dwUY4L35XFYEzE+OAL3sarJdUioVovq+8f7lcIJ7wnmnYQV5UD1Y/lcwaMSyaQ6Bj3JMj1XSTjZbNLHn/19yA==}
     engines: {node: '>=18'}
 
-  upper-case@2.0.2:
-    resolution: {integrity: sha512-KgdgDGJt2TpuwBUIjgG6lzw2GWFRCW9Qkfkiv0DxqHHLYJHmtmdUIKcZd8rHgFSjopVTlw6ggzCm1b8MFQwikg==}
-
   uqr@0.1.2:
     resolution: {integrity: sha512-MJu7ypHq6QasgF5YRTjqscSzQp/W11zoUk6kvmlH+fmWEs63Y0Eib13hYFwAzagRJcVY8WVnlV+eBDUGMJ5IbA==}
 
@@ -10086,11 +9791,6 @@ packages:
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
-
-  vue-frag@1.4.3:
-    resolution: {integrity: sha512-pQZj03f/j9LRhzz9vKaXTCXUHVYHuAXicshFv76VFqwz4MG3bcb+sPZMAbd0wmw7THjkrTPuoM0EG9TbG8CgMQ==}
-    peerDependencies:
-      vue: ^3.5.13
 
   vue-i18n@10.0.5:
     resolution: {integrity: sha512-9/gmDlCblz3i8ypu/afiIc/SUIfTTE1mr0mZhb9pk70xo2csHAM9mp2gdQ3KD2O0AM3Hz/5ypb+FycTj/lHlPQ==}
@@ -11987,135 +11687,6 @@ snapshots:
 
   '@ctrl/tinycolor@4.1.0': {}
 
-  '@designable/core@1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive@2.3.2)':
-    dependencies:
-      '@designable/shared': 1.0.0-beta.45
-      '@formily/json-schema': 2.3.2(typescript@5.6.3)
-      '@formily/path': 2.3.2
-      '@formily/reactive': 2.3.2
-      '@juggle/resize-observer': 3.4.0
-
-  '@designable/formily-antd@1.0.0-beta.45(@formily/antd@2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/core@2.3.2)(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(@formily/shared@2.3.2)(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)':
-    dependencies:
-      '@designable/core': 1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive@2.3.2)
-      '@designable/formily-setters': 1.0.0-beta.45(@formily/antd@2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/core@2.3.2)(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(@formily/shared@2.3.2)(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)
-      '@designable/formily-transformer': 1.0.0-beta.45(@formily/core@2.3.2)(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive@2.3.2)
-      '@designable/react': 1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react@16.14.0)
-      '@formily/antd': 2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)
-      '@formily/core': 2.3.2
-      '@formily/react': 2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)
-      '@formily/reactive': 2.3.2
-      '@formily/shared': 2.3.2
-      '@types/react': 19.0.0
-      '@types/react-dom': 19.0.0
-      antd: 5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      react: 16.14.0
-      react-dom: 19.0.0(react@16.14.0)
-      react-is: 18.3.1
-    transitivePeerDependencies:
-      - '@formily/json-schema'
-      - '@formily/path'
-      - '@formily/reactive-react'
-
-  '@designable/formily-setters@1.0.0-beta.45(@formily/antd@2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/core@2.3.2)(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(@formily/shared@2.3.2)(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)':
-    dependencies:
-      '@designable/core': 1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive@2.3.2)
-      '@designable/formily-transformer': 1.0.0-beta.45(@formily/core@2.3.2)(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive@2.3.2)
-      '@designable/react': 1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react@16.14.0)
-      '@designable/react-settings-form': 1.0.0-beta.45(@formily/antd@2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/core@2.3.2)(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(@formily/shared@2.3.2)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      '@formily/antd': 2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)
-      '@formily/core': 2.3.2
-      '@formily/react': 2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)
-      '@formily/shared': 2.3.2
-      '@types/react': 19.0.0
-      '@types/react-dom': 19.0.0
-      antd: 5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      react: 16.14.0
-      react-dom: 19.0.0(react@16.14.0)
-      react-is: 18.3.1
-    transitivePeerDependencies:
-      - '@formily/json-schema'
-      - '@formily/path'
-      - '@formily/reactive'
-      - '@formily/reactive-react'
-
-  '@designable/formily-transformer@1.0.0-beta.45(@formily/core@2.3.2)(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive@2.3.2)':
-    dependencies:
-      '@designable/core': 1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive@2.3.2)
-      '@designable/shared': 1.0.0-beta.45
-      '@formily/core': 2.3.2
-      '@formily/json-schema': 2.3.2(typescript@5.6.3)
-    transitivePeerDependencies:
-      - '@formily/path'
-      - '@formily/reactive'
-
-  '@designable/react-settings-form@1.0.0-beta.45(@formily/antd@2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/core@2.3.2)(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3))(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(@formily/shared@2.3.2)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react-dom@19.0.0(react@16.14.0))(react@16.14.0)':
-    dependencies:
-      '@babel/parser': 7.26.2
-      '@designable/core': 1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive@2.3.2)
-      '@designable/react': 1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react@16.14.0)
-      '@designable/shared': 1.0.0-beta.45
-      '@formily/antd': 2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)
-      '@formily/core': 2.3.2
-      '@formily/react': 2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)
-      '@formily/reactive': 2.3.2
-      '@formily/reactive-react': 2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)
-      '@formily/shared': 2.3.2
-      '@monaco-editor/react': 4.6.0(monaco-editor@0.25.2)(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      antd: 5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      monaco-editor: 0.25.2
-      prettier: 2.8.8
-      react-color: 2.19.3(react@16.14.0)
-      react-tiny-popover: 6.0.10(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-    transitivePeerDependencies:
-      - '@formily/json-schema'
-      - '@formily/path'
-      - react
-      - react-dom
-
-  '@designable/react@1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0))(@formily/reactive@2.3.2)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react@16.14.0)':
-    dependencies:
-      '@designable/core': 1.0.0-beta.45(@formily/json-schema@2.3.2(typescript@5.6.3))(@formily/path@2.3.2)(@formily/reactive@2.3.2)
-      '@designable/shared': 1.0.0-beta.45
-      '@formily/reactive': 2.3.2
-      '@formily/reactive-react': 2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)
-      '@juggle/resize-observer': 3.4.0
-      antd: 5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      dateformat: 4.6.3
-      react: 16.14.0
-    transitivePeerDependencies:
-      - '@formily/json-schema'
-      - '@formily/path'
-
-  '@designable/shared@1.0.0-beta.45':
-    dependencies:
-      requestidlecallback: 0.3.0
-
-  '@dnd-kit/accessibility@3.1.1(react@16.14.0)':
-    dependencies:
-      react: 16.14.0
-      tslib: 2.8.1
-
-  '@dnd-kit/core@6.3.1(react-dom@19.0.0(react@16.14.0))(react@16.14.0)':
-    dependencies:
-      '@dnd-kit/accessibility': 3.1.1(react@16.14.0)
-      '@dnd-kit/utilities': 3.2.2(react@16.14.0)
-      react: 16.14.0
-      react-dom: 19.0.0(react@16.14.0)
-      tslib: 2.8.1
-
-  '@dnd-kit/sortable@7.0.2(@dnd-kit/core@6.3.1(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react@16.14.0)':
-    dependencies:
-      '@dnd-kit/core': 6.3.1(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      '@dnd-kit/utilities': 3.2.2(react@16.14.0)
-      react: 16.14.0
-      tslib: 2.8.1
-
-  '@dnd-kit/utilities@3.2.2(react@16.14.0)':
-    dependencies:
-      react: 16.14.0
-      tslib: 2.8.1
-
   '@dual-bundle/import-meta-resolve@4.1.0': {}
 
   '@emotion/hash@0.8.0': {}
@@ -12340,118 +11911,6 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@formily/antd@2.3.2(@ant-design/icons@5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(@types/react-dom@19.0.0)(@types/react@19.0.0)(antd@5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(prop-types@15.8.1)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)':
-    dependencies:
-      '@ant-design/icons': 5.5.2(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      '@dnd-kit/core': 6.3.1(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      '@dnd-kit/sortable': 7.0.2(@dnd-kit/core@6.3.1(react-dom@19.0.0(react@16.14.0))(react@16.14.0))(react@16.14.0)
-      '@formily/core': 2.3.2
-      '@formily/grid': 2.3.2(typescript@5.6.3)
-      '@formily/json-schema': 2.3.2(typescript@5.6.3)
-      '@formily/react': 2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)
-      '@formily/reactive': 2.3.2
-      '@formily/reactive-react': 2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)
-      '@formily/shared': 2.3.2
-      antd: 5.22.3(date-fns@4.1.0)(moment@2.30.1)(react-dom@19.0.0(react@16.14.0))(react@16.14.0)
-      classnames: 2.5.1
-      react: 16.14.0
-      react-dom: 19.0.0(react@16.14.0)
-      react-is: 18.3.1
-      react-sticky-box: 0.9.3(prop-types@15.8.1)(react@16.14.0)
-    optionalDependencies:
-      '@types/react': 19.0.0
-      '@types/react-dom': 19.0.0
-    transitivePeerDependencies:
-      - prop-types
-      - typescript
-
-  '@formily/core@2.3.2':
-    dependencies:
-      '@formily/reactive': 2.3.2
-      '@formily/shared': 2.3.2
-      '@formily/validator': 2.3.2
-
-  '@formily/grid@2.3.2(typescript@5.6.3)':
-    dependencies:
-      '@formily/reactive': 2.3.2
-      '@juggle/resize-observer': 3.4.0
-      typescript: 5.6.3
-
-  '@formily/json-schema@2.3.2(typescript@5.6.3)':
-    dependencies:
-      '@formily/core': 2.3.2
-      '@formily/reactive': 2.3.2
-      '@formily/shared': 2.3.2
-      typescript: 5.6.3
-
-  '@formily/path@2.3.2': {}
-
-  '@formily/react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)(typescript@5.6.3)':
-    dependencies:
-      '@formily/core': 2.3.2
-      '@formily/json-schema': 2.3.2(typescript@5.6.3)
-      '@formily/reactive': 2.3.2
-      '@formily/reactive-react': 2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)
-      '@formily/shared': 2.3.2
-      '@formily/validator': 2.3.2
-      hoist-non-react-statics: 3.3.2
-      react: 16.14.0
-      react-dom: 19.0.0(react@16.14.0)
-      react-is: 18.3.1
-    optionalDependencies:
-      '@types/react': 19.0.0
-      '@types/react-dom': 19.0.0
-    transitivePeerDependencies:
-      - typescript
-
-  '@formily/reactive-react@2.3.2(@types/react-dom@19.0.0)(@types/react@19.0.0)(react-dom@19.0.0(react@16.14.0))(react-is@18.3.1)(react@16.14.0)':
-    dependencies:
-      '@formily/reactive': 2.3.2
-      hoist-non-react-statics: 3.3.2
-      react: 16.14.0
-      react-dom: 19.0.0(react@16.14.0)
-      react-is: 18.3.1
-    optionalDependencies:
-      '@types/react': 19.0.0
-      '@types/react-dom': 19.0.0
-
-  '@formily/reactive-vue@2.3.2(vue@3.5.13(typescript@5.6.3))':
-    dependencies:
-      '@formily/reactive': 2.3.2
-      vue: 3.5.13(typescript@5.6.3)
-      vue-demi: 0.14.10(vue@3.5.13(typescript@5.6.3))
-
-  '@formily/reactive@2.3.2': {}
-
-  '@formily/shared@2.3.2':
-    dependencies:
-      '@formily/path': 2.3.2
-      camel-case: 4.1.2
-      lower-case: 2.0.2
-      no-case: 3.0.4
-      param-case: 3.0.4
-      pascal-case: 3.1.2
-      upper-case: 2.0.2
-
-  '@formily/validator@2.3.2':
-    dependencies:
-      '@formily/shared': 2.3.2
-
-  '@formily/vue@2.3.2(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))':
-    dependencies:
-      '@formily/core': 2.3.2
-      '@formily/json-schema': 2.3.2(typescript@5.6.3)
-      '@formily/reactive': 2.3.2
-      '@formily/reactive-vue': 2.3.2(vue@3.5.13(typescript@5.6.3))
-      '@formily/shared': 2.3.2
-      '@formily/validator': 2.3.2
-      fs-extra: 10.1.0
-      vue: 3.5.13(typescript@5.6.3)
-      vue-demi: 0.14.10(vue@3.5.13(typescript@5.6.3))
-      vue-frag: 1.4.3(vue@3.5.13(typescript@5.6.3))
-    transitivePeerDependencies:
-      - typescript
-
   '@gar/promisify@1.1.3': {}
 
   '@humanfs/core@0.19.1': {}
@@ -12482,10 +11941,6 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
       vue: 3.5.13(typescript@5.7.2)
-
-  '@icons/material@0.2.4(react@16.14.0)':
-    dependencies:
-      react: 16.14.0
 
   '@internationalized/date@3.6.0':
     dependencies:
@@ -12614,26 +12069,6 @@ snapshots:
 
   '@jspm/import-map@1.1.0': {}
 
-  '@juggle/resize-observer@3.4.0': {}
-
-  '@lljj/vjsf-utils@1.19.0':
-    dependencies:
-      ajv: 6.12.6
-
-  '@lljj/vue3-form-ant@1.19.0':
-    dependencies:
-      '@lljj/vjsf-utils': 1.19.0
-      '@lljj/vue3-form-core': 1.19.0
-
-  '@lljj/vue3-form-core@1.19.0':
-    dependencies:
-      '@lljj/vjsf-utils': 1.19.0
-
-  '@lljj/vue3-form-element@1.19.0':
-    dependencies:
-      '@lljj/vjsf-utils': 1.19.0
-      '@lljj/vue3-form-core': 1.19.0
-
   '@manypkg/find-root@1.1.0':
     dependencies:
       '@babel/runtime': 7.26.0
@@ -12714,18 +12149,6 @@ snapshots:
       resolve: 1.22.8
 
   '@microsoft/tsdoc@0.15.1': {}
-
-  '@monaco-editor/loader@1.4.0(monaco-editor@0.25.2)':
-    dependencies:
-      monaco-editor: 0.25.2
-      state-local: 1.0.7
-
-  '@monaco-editor/react@4.6.0(monaco-editor@0.25.2)(react-dom@19.0.0(react@16.14.0))(react@16.14.0)':
-    dependencies:
-      '@monaco-editor/loader': 1.4.0(monaco-editor@0.25.2)
-      monaco-editor: 0.25.2
-      react: 16.14.0
-      react-dom: 19.0.0(react@16.14.0)
 
   '@netlify/functions@2.8.2':
     dependencies:
@@ -13377,14 +12800,6 @@ snapshots:
   '@types/qrcode@1.5.5':
     dependencies:
       '@types/node': 22.10.1
-
-  '@types/react-dom@19.0.0':
-    dependencies:
-      '@types/react': 19.0.0
-
-  '@types/react@19.0.0':
-    dependencies:
-      csstype: 3.1.3
 
   '@types/readdir-glob@1.1.5':
     dependencies:
@@ -14926,8 +14341,6 @@ snapshots:
   date-fns@4.1.0:
     optional: true
 
-  dateformat@4.6.3: {}
-
   dayjs@1.11.13: {}
 
   db0@0.2.1: {}
@@ -16100,10 +15513,6 @@ snapshots:
 
   he@1.2.0: {}
 
-  hoist-non-react-statics@3.3.2:
-    dependencies:
-      react-is: 16.13.1
-
   homedir-polyfill@1.0.3:
     dependencies:
       parse-passwd: 1.0.0
@@ -16853,8 +16262,6 @@ snapshots:
       - bluebird
       - supports-color
 
-  material-colors@1.2.6: {}
-
   mathml-tag-names@2.1.3: {}
 
   mdn-data@2.0.28: {}
@@ -17000,8 +16407,6 @@ snapshots:
 
   moment@2.30.1:
     optional: true
-
-  monaco-editor@0.25.2: {}
 
   mri@1.2.0: {}
 
@@ -18416,17 +17821,6 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-color@2.19.3(react@16.14.0):
-    dependencies:
-      '@icons/material': 0.2.4(react@16.14.0)
-      lodash: 4.17.21
-      lodash-es: 4.17.21
-      material-colors: 1.2.6
-      prop-types: 15.8.1
-      react: 16.14.0
-      reactcss: 1.2.3(react@16.14.0)
-      tinycolor2: 1.6.0
-
   react-dom@19.0.0(react@16.14.0):
     dependencies:
       react: 16.14.0
@@ -18436,28 +17830,11 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-sticky-box@0.9.3(prop-types@15.8.1)(react@16.14.0):
-    dependencies:
-      '@babel/runtime': 7.26.0
-      prop-types: 15.8.1
-      react: 16.14.0
-      resize-observer-polyfill: 1.5.1
-
-  react-tiny-popover@6.0.10(react-dom@19.0.0(react@16.14.0))(react@16.14.0):
-    dependencies:
-      react: 16.14.0
-      react-dom: 19.0.0(react@16.14.0)
-
   react@16.14.0:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       prop-types: 15.8.1
-
-  reactcss@1.2.3(react@16.14.0):
-    dependencies:
-      lodash: 4.17.21
-      react: 16.14.0
 
   read-cache@1.0.0:
     dependencies:
@@ -18598,8 +17975,6 @@ snapshots:
   relateurl@0.2.7: {}
 
   repeat-string@1.6.1: {}
-
-  requestidlecallback@0.3.0: {}
 
   require-directory@2.1.1: {}
 
@@ -18955,8 +18330,6 @@ snapshots:
   stackback@0.0.2: {}
 
   standard-as-callback@2.1.0: {}
-
-  state-local@1.0.7: {}
 
   statuses@2.0.1: {}
 
@@ -19345,8 +18718,6 @@ snapshots:
 
   tinybench@2.9.0: {}
 
-  tinycolor2@1.6.0: {}
-
   tinyexec@0.3.1: {}
 
   tinyglobby@0.2.10:
@@ -19674,10 +19045,6 @@ snapshots:
       semver: 7.6.3
       xdg-basedir: 5.1.0
 
-  upper-case@2.0.2:
-    dependencies:
-      tslib: 2.8.1
-
   uqr@0.1.2: {}
 
   uri-js-replace@1.0.1: {}
@@ -19904,10 +19271,6 @@ snapshots:
 
   vue-component-type-helpers@2.1.10: {}
 
-  vue-demi@0.14.10(vue@3.5.13(typescript@5.6.3)):
-    dependencies:
-      vue: 3.5.13(typescript@5.6.3)
-
   vue-demi@0.14.10(vue@3.5.13(typescript@5.7.2)):
     dependencies:
       vue: 3.5.13(typescript@5.7.2)
@@ -19924,10 +19287,6 @@ snapshots:
       semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
-
-  vue-frag@1.4.3(vue@3.5.13(typescript@5.6.3)):
-    dependencies:
-      vue: 3.5.13(typescript@5.6.3)
 
   vue-i18n@10.0.5(vue@3.5.13(typescript@5.7.2)):
     dependencies:
