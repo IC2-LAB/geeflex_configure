@@ -1,11 +1,4 @@
-import type { Column } from '#/typing'
-
-interface SchemaProperty {
-  type: string
-  properties?: Record<string, SchemaProperty>
-  items?: SchemaProperty
-  description?: string
-}
+import type { SchemaProperty } from '../typing'
 
 interface SchemaContext {
   path: string[]
@@ -14,199 +7,94 @@ interface SchemaContext {
 }
 
 // 创建默认上下文的工厂函数
-const createDefaultContext = (data: any): SchemaContext => ({
+const _createDefaultContext = (data: any): SchemaContext => ({
   path: [],
   rootData: data,
 })
 
 // 创建调试工具函数，使用 import.meta.env 替代 process.env
-const createDebugger =
+const _createDebugger =
   (enabled: boolean) =>
-  (message: string, ...args: any[]) => {
-    if (enabled) {
-      // eslint-disable-next-line no-console
-      console.log(message, ...args)
-    }
-  }
-
-export const parser = (
-  schema: Record<string, SchemaProperty>,
-  data: any,
-  context = createDefaultContext(data),
-): Column[] => {
-  // 使用 import.meta.env 替代 process.env
-  const debug = createDebugger(import.meta.env.DEV)
-
-  // 在根数据中查找字段的所有实例及其路径
-  const findFieldInData = (
-    rootData: any,
-    targetKey: string,
-    currentPath: string[] = [],
-  ): Array<{ path: string[]; value: any }> => {
-    const results: Array<{ path: string[]; value: any }> = []
-
-    const search = (obj: any, path: string[]) => {
-      if (!obj || typeof obj !== 'object') return
-
-      if (targetKey in obj) {
-        results.push({ value: obj[targetKey], path: [...path, targetKey] })
-      }
-
-      if (Array.isArray(obj)) {
-        obj.forEach((item, index) => {
-          search(item, [...path, index.toString()])
-        })
-      } else {
-        Object.entries(obj).forEach(([key, value]) => {
-          search(value, [...path, key])
-        })
+    (message: string, ...args: any[]) => {
+      if (enabled) {
+        // eslint-disable-next-line no-console
+        console.log(message, ...args)
       }
     }
 
-    search(rootData, currentPath)
-    return results
-  }
+export function parser(schema: any, data: any, parentPath = '') {
+  const result = [];
 
-  // 根据 Schema 获取字段的预期路径
-  const getSchemaPath = (
-    schema: any,
-    targetKey: string,
-    currentPath: string[] = [],
-  ): null | string[] => {
-    for (const [key, value] of Object.entries(schema)) {
-      const newPath = [...currentPath, key]
+  for (const key in schema) {
+    const currentPath = parentPath ? `${parentPath}.${key}` : key;
+    const schemaItem = schema[key];
+    const value = data[key];
 
-      if (key === targetKey) {
-        return newPath
-      }
-
-      if (value.properties) {
-        const found = getSchemaPath(value.properties, targetKey, newPath)
-        if (found) return found
-      }
-
-      if (value.items?.properties) {
-        const found = getSchemaPath(value.items.properties, targetKey, [
-          ...newPath,
-          'items',
-        ])
-        if (found) return found
-      }
-    }
-    return null
-  }
-
-  return Object.entries(schema).map(([key, schemaValue]) => {
-    // 1. 获取字段在 Schema 中定义的路径
-    const schemaPath = getSchemaPath(schema, key) || []
-
-    // 2. 在整个数据中查找该字段的所有实例
-    const foundInstances = findFieldInData(context.rootData, key)
-    debug(`Found instances for "${key}":`, foundInstances)
-
-    // 3. 选择最合适的值
-    let currentData: any
-    if (foundInstances.length > 0) {
-      // 如果在当前路径下找到了值，优先使用
-      const currentPathStr = context.path.join('.')
-      const matchingInstance = foundInstances.find((instance) =>
-        instance.path.join('.').startsWith(currentPathStr),
-      )
-      currentData = matchingInstance
-        ? matchingInstance.value
-        : foundInstances[0].value
+    // 确保数据存在
+    if (!schemaItem) {
+      console.warn(`Schema missing for key: ${key}`);
+      continue;
     }
 
-    debug(`Processing "${key}" at path ${context.path.join('.')}:`, {
-      schemaType: schemaValue.type,
-      value: currentData,
-      schemaPath,
-    })
-
-    // 基本结构
-    const baseItem: Column = {
+    const item = {
       key,
-      description: schemaValue.description,
-      type: schemaValue.type,
-      hasChild: false,
-      value: currentData,
-    }
+      type: schemaItem.type,
+      value,
+      path: currentPath,
+      hasChild: schemaItem.type === 'object' || schemaItem.type === 'array',
+      description: schemaItem.description,
+      childrenColumn: [
+        { dataIndex: 'key', width: '30%' },
+        { dataIndex: 'value' }
+      ]
+    };
 
-    // 对象类型处理
-    if (schemaValue.type === 'object' && schemaValue.properties) {
-      const objectData =
-        currentData && typeof currentData === 'object' ? currentData : {}
-      return {
-        ...baseItem,
-        hasChild: true,
-        childrenTable: parser(schemaValue.properties, objectData, {
-          path: [...context.path, key],
-          parentKey: key,
-          rootData: context.rootData,
-        }),
-        childrenColumn: [
-          { title: '字段', dataIndex: 'key', width: '30%' },
-          { title: '值', dataIndex: 'value' },
-        ],
+    if (item.hasChild) {
+      if (schemaItem.type === 'object') {
+        // 确保对象类型数据的正确处理
+        const properties = schemaItem.properties || {};
+        const objValue = value || {};
+        item.childrenTable = parser(
+          properties,
+          objValue,
+          currentPath
+        );
+      } else if (schemaItem.type === 'array') {
+        // 处理数组类型
+        const arrayValue = Array.isArray(value) ? value : [];
+        item.childrenTable = arrayValue.map((arrayItem: any, index: number) => {
+          return schemaItem.items?.type === 'object'
+            ? {
+              key: index,
+              type: 'object',
+              value: arrayItem,
+              path: `${currentPath}.${index}`,
+              hasChild: true,
+              childrenColumn: [
+                { dataIndex: 'key', width: '30%' },
+                { dataIndex: 'value' }
+              ],
+              childrenTable: parser(
+                schemaItem.items.properties || {},
+                arrayItem,
+                `${currentPath}.${index}`
+              )
+            }
+            : {
+              key: index,
+              type: schemaItem.items?.type || 'string',
+              value: arrayItem,
+              path: `${currentPath}.${index}`,
+              hasChild: false
+            };
+        });
       }
     }
 
-    // 数组类型处理
-    if (schemaValue.type === 'array' && schemaValue.items) {
-      const arrayData = Array.isArray(currentData) ? currentData : []
+    result.push(item);
+  }
 
-      // 处理对象数组
-      if (schemaValue.items.type === 'object' && schemaValue.items.properties) {
-        const itemProperties = schemaValue.items.properties
-        const processedItems = arrayData.map((item, index) => {
-          const itemData = typeof item === 'object' && item !== null ? item : {}
-
-          return {
-            key: index,
-            type: 'object',
-            hasChild: true,
-            childrenTable: parser(itemProperties, itemData, {
-              path: [...context.path, key, index.toString()],
-              parentKey: key,
-              rootData: context.rootData,
-            }),
-            childrenColumn: [
-              { title: '字段', dataIndex: 'key', width: '30%' },
-              { title: '值', dataIndex: 'value' },
-            ],
-          }
-        })
-
-        return {
-          ...baseItem,
-          hasChild: true,
-          childrenTable: processedItems,
-          childrenColumn: [
-            { title: '序号', dataIndex: 'key', width: '80px' },
-            { title: '值', dataIndex: 'value' },
-          ],
-        }
-      }
-
-      // 处理基本类型数组
-      return {
-        ...baseItem,
-        hasChild: true,
-        childrenTable: arrayData.map((item, index) => ({
-          key: index,
-          type: typeof item,
-          value: item,
-          hasChild: false,
-        })),
-        childrenColumn: [
-          { title: '序号', dataIndex: 'key', width: '80px' },
-          { title: '值', dataIndex: 'value' },
-        ],
-      }
-    }
-
-    return baseItem
-  })
+  return result;
 }
 
 export const reverseParser = (parsedData: any[]): any => {

@@ -1,78 +1,129 @@
+/* eslint-disable no-console */
 <script lang="ts" setup>
-import type { Column, ColumnType } from '#/typing'
+import type { Column, ColumnType } from "#/typing";
 
-import { h } from 'vue'
+import { h } from "vue";
 
-import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons-vue'
+import { CaretDownOutlined, CaretRightOutlined } from "@ant-design/icons-vue";
 
-import CustomArray from './CustomArray.vue'
-import CustomBoolean from './CustomBoolean.vue'
-import CustomField from './CustomField.vue'
-import CustomInput from './CustomInput.vue'
-import CustomInputNumber from './CustomInputNumber.vue'
+import CustomArray from "./CustomArray.vue";
+import CustomBoolean from "./CustomBoolean.vue";
+import CustomField from "./CustomField.vue";
+import CustomInput from "./CustomInput.vue";
+import CustomInputNumber from "./CustomInputNumber.vue";
 
 interface TableProps {
-  table: Column[]
-  columns: ColumnType[]
+  table: Column[];
+  columns: ColumnType[];
+  parentPath?: string;
 }
 
-const props = defineProps<TableProps>()
-const emit = defineEmits(['update:table'])
+const props = defineProps<TableProps>();
+const emit = defineEmits<{
+  "update:table": [
+    data: any[],
+    path?: string,
+    type?: string,
+    value?: any,
+    operation?: "add" | "delete"
+  ];
+}>();
 
 // 处理值变化
-const handleValueChange = (record: any, value: any) => {
+const handleValueChange = (
+  record: any,
+  value: any,
+  path?: string,
+  type?: string,
+  operation?: "add" | "delete"
+) => {
+  console.log("CustomObj handleValueChange:", {
+    record,
+    value,
+    path,
+    type,
+    operation,
+    currentTable: props.table,
+  });
+
   if (!Array.isArray(props.table)) {
-    // console.warn("Table data is not an array");
-    return
+    return;
   }
 
-  // console.log("Updating record:", record, "with value:", value);
+  // 创建新的数组引用以触发响应式更新
+  const updatedTable = [...props.table];
 
-  const updatedTable = props.table.map((item) => {
-    if (item === record) {
-      const newItem = { ...item, ...value }
-      // console.log("Updated item:", newItem);
-      return newItem
+  // 找到要更新的记录索引
+  const index = updatedTable.findIndex((item) => item === record);
+  if (index !== -1) {
+    // 处理其他类型的更新
+    if (typeof value === "boolean") {
+      updatedTable[index].value = value;
+    } else if ("value" in value) {
+      if (record.type === "object" && record.childrenTable) {
+        const fieldToUpdate = record.childrenTable.find(
+          (field: any) => field.key === path
+        );
+        if (fieldToUpdate) {
+          fieldToUpdate.value = value.value;
+        }
+      } else {
+        updatedTable[index].value = value.value;
+      }
     }
-    return item
-  })
+  }
 
-  // console.log("Emitting updated table:", updatedTable);
-  emit('update:table', updatedTable)
-}
+  // 如果有路径和类型信息，发送更新
+  if (path && type) {
+    emit(
+      "update:table",
+      updatedTable,
+      path,
+      type,
+      typeof value === "boolean" ? value : value.value
+    );
+  } else {
+    // 否则只更新本地数据，但确保传递正确的路径和类型
+    emit(
+      "update:table",
+      updatedTable,
+      record.path,
+      record.type,
+      typeof value === "boolean" ? value : value.value
+    );
+  }
+};
 
 // 展开图标
 const expandIcon = (propsval: any) => {
   if (propsval.record?.hasChild) {
     return h(
-      'span',
+      "span",
       {
-        class: 'expand-icon-wrapper',
+        class: "expand-icon-wrapper",
         onClick: (e: Event) => {
-          e.stopPropagation()
-          propsval.onExpand?.(propsval.record, e)
+          e.stopPropagation();
+          propsval.onExpand?.(propsval.record, e);
         },
       },
       [
         h(propsval.expanded ? CaretDownOutlined : CaretRightOutlined, {
-          class: 'expand-icon',
+          class: "expand-icon",
         }),
-      ],
-    )
+      ]
+    );
   }
-  return null
-}
+  return null;
+};
 </script>
 
 <template>
   <a-table
     :columns="props.columns"
     :data-source="props.table"
-    :default-expand-all-rows="false"
-    :expand-icon="expandIcon"
     :pagination="false"
+    :expand-icon="expandIcon"
     bordered
-    class="components-table-demo-nested"
     size="small"
   >
     <template #bodyCell="{ column, record }">
@@ -85,45 +136,56 @@ const expandIcon = (propsval: any) => {
       <template v-else-if="column.dataIndex === 'value'">
         <template v-if="record.hasChild">
           <span class="text-secondary">{{
-            record.type === 'array' ? '数组' : '对象'
+            record.type === "array" ? "数组" : "对象"
           }}</span>
         </template>
         <template v-else>
-          <template v-if="record.type === 'simple_array'">
-            <a-input
-              :value="Array.isArray(record.value) ? record.value.join(',') : ''"
-              placeholder="请输入数组值，用逗号分隔"
-              @update:value="
-                (e) =>
-                  handleValueChange(record, {
-                    value: e.split(',').map((item) => Number(item.trim())),
-                  })
-              "
-            />
-          </template>
-          <template v-else>
-            <CustomInput
-              v-if="record.type === 'string'"
-              :model-value="record.value"
-              @update:model-value="
-                (val) => handleValueChange(record, { value: val })
-              "
-            />
-            <CustomInputNumber
-              v-else-if="record.type === 'number'"
-              :model-value="record.value"
-              @update:model-value="
-                (val) => handleValueChange(record, { value: val })
-              "
-            />
-            <CustomBoolean
-              v-else-if="record.type === 'boolean'"
-              :model-value="record.value"
-              @update:model-value="
-                (val) => handleValueChange(record, { value: val })
-              "
-            />
-          </template>
+          <CustomInput
+            v-if="record.type === 'string'"
+            :model-value="record.value"
+            :path="record.path"
+            :type="record.type"
+            @update:model-value="
+              (val, path, type) => {
+                if (path && type) {
+                  handleValueChange(record, { value: val }, path, type);
+                } else {
+                  // 本地更新，确保传递正确的路径和类型
+                  handleValueChange(
+                    record,
+                    { value: val },
+                    record.path,
+                    record.type
+                  );
+                }
+              }
+            "
+          />
+          <CustomInputNumber
+            v-else-if="record.type === 'number'"
+            :model-value="record.value"
+            :path="record.path"
+            :type="record.type"
+            @update:model-value="
+              (val, path, type) => {
+                if (path && type) {
+                  handleValueChange(record, { value: val }, path, type);
+                } else {
+                  // 本地更新
+                  handleValueChange(record, { value: val });
+                }
+              }
+            "
+          />
+          <CustomBoolean
+            v-else-if="record.type === 'boolean'"
+            :model-value="record.value"
+            :path="record.path"
+            :type="record.type"
+            @update:model-value="
+              (val, path, type) => handleValueChange(record, val, path, type)
+            "
+          />
         </template>
       </template>
     </template>
@@ -134,8 +196,28 @@ const expandIcon = (propsval: any) => {
           <CustomArray
             :columns="record.childrenColumn"
             :table="record.childrenTable"
+            :parent-path="record.path"
             @update:table="
-              (val) => handleValueChange(record, { childrenTable: val })
+              (val, path, type, value, operation) => {
+                // 更新本地数据
+                record.childrenTable = val;
+
+                // 如果是数组操作或有路径信息，传递到上层
+                if (operation || (path && type)) {
+                  emit(
+                    'update:table',
+                    props.table,
+                    path,
+                    type,
+                    value,
+                    operation
+                  );
+                  return;
+                }
+
+                // 其他情况，更新对象的值
+                handleValueChange(record, { value: val });
+              }
             "
           />
         </template>
@@ -143,8 +225,23 @@ const expandIcon = (propsval: any) => {
           <CustomObj
             :columns="record.childrenColumn"
             :table="record.childrenTable"
+            :parent-path="record.path"
             @update:table="
-              (val) => handleValueChange(record, { childrenTable: val })
+              (val, path, type, value, operation) => {
+                if (operation || (path && type)) {
+                  // 处理嵌套对象中的操作
+                  emit(
+                    'update:table',
+                    props.table,
+                    path,
+                    type,
+                    value,
+                    operation
+                  );
+                  return;
+                }
+                handleValueChange(record, { value });
+              }
             "
           />
         </template>
@@ -167,13 +264,19 @@ const expandIcon = (propsval: any) => {
   padding: 8px !important;
 }
 
+:deep(.ant-table-row-level-0 > .ant-table-cell:nth-child(2)) {
+  padding-left: 8px !important;
+}
+
+:deep(.nested-content) {
+  margin-left: -8px;
+  margin-right: -8px;
+  padding: 0 !important;
+}
+
 .text-secondary {
   font-style: italic;
   color: rgb(0 0 0 / 45%);
-}
-
-.nested-content {
-  padding: 0 16px;
 }
 
 :deep(.ant-table) {
