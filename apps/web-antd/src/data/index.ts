@@ -22,12 +22,12 @@ const createDefaultContext = (data: any): SchemaContext => ({
 // 创建调试工具函数，使用 import.meta.env 替代 process.env
 const createDebugger =
   (enabled: boolean) =>
-  (message: string, ...args: any[]) => {
-    if (enabled) {
-      // eslint-disable-next-line no-console
-      console.log(message, ...args)
+    (message: string, ...args: any[]) => {
+      if (enabled) {
+        // eslint-disable-next-line no-console
+        console.log(message, ...args)
+      }
     }
-  }
 
 export const parser = (
   schema: Record<string, SchemaProperty>,
@@ -123,6 +123,14 @@ export const parser = (
       schemaPath,
     })
 
+    // 打印每个数据项的路径信息
+    console.log("Parsing item:", {
+      key,
+      schemaPath: schemaPath.join('.'),
+      parentPath: context.path.join('.'),
+      fullPath: context.path.join('.') + '.' + key
+    })
+
     // 基本结构
     const baseItem: Column = {
       key,
@@ -130,6 +138,7 @@ export const parser = (
       type: schemaValue.type,
       hasChild: false,
       value: currentData,
+      path: context.path.length ? context.path.join('.') + '.' + key : key,
     }
 
     // 对象类型处理

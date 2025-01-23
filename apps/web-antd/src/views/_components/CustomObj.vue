@@ -1,67 +1,90 @@
 <script lang="ts" setup>
-import type { Column, ColumnType } from '#/typing'
+import type { Column, ColumnType } from "#/typing";
 
-import { h } from 'vue'
+import { h } from "vue";
 
-import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons-vue'
+import { CaretDownOutlined, CaretRightOutlined } from "@ant-design/icons-vue";
+import { syncData } from "#/utils/request";
 
-import CustomArray from './CustomArray.vue'
-import CustomBoolean from './CustomBoolean.vue'
-import CustomField from './CustomField.vue'
-import CustomInput from './CustomInput.vue'
-import CustomInputNumber from './CustomInputNumber.vue'
+import CustomArray from "./CustomArray.vue";
+import CustomBoolean from "./CustomBoolean.vue";
+import CustomField from "./CustomField.vue";
+import CustomInput from "./CustomInput.vue";
+import CustomInputNumber from "./CustomInputNumber.vue";
+import CustomObj from "./CustomObj.vue";
 
 interface TableProps {
-  table: Column[]
-  columns: ColumnType[]
+  table: Column[];
+  columns: ColumnType[];
+  parentPath?: string;
+  caseId: string;
 }
 
-const props = defineProps<TableProps>()
-const emit = defineEmits(['update:table'])
+const props = defineProps<TableProps>();
+const emit = defineEmits(["update:table"]);
+
+// 构建完整路径
+const buildFullPath = (key: string) => {
+  return props.parentPath ? `${props.parentPath}.${key}` : key;
+};
 
 // 处理值变化
-const handleValueChange = (record: any, value: any) => {
+const handleValueChange = async (record: any, value: any) => {
   if (!Array.isArray(props.table)) {
     // console.warn("Table data is not an array");
-    return
+    return;
   }
 
   // console.log("Updating record:", record, "with value:", value);
 
   const updatedTable = props.table.map((item) => {
     if (item === record) {
-      const newItem = { ...item, ...value }
+      const newItem = { ...item, ...value };
       // console.log("Updated item:", newItem);
-      return newItem
+      return newItem;
     }
-    return item
-  })
+    return item;
+  });
 
   // console.log("Emitting updated table:", updatedTable);
-  emit('update:table', updatedTable)
-}
+  emit("update:table", updatedTable);
+
+  // 如果有值变化，同步到后端
+  if (value.value !== undefined) {
+    try {
+      await syncData({
+        path: record.path,
+        type: record.type,
+        value: value.value,
+        caseId: props.caseId,
+      });
+    } catch (error) {
+      console.error("Sync error:", error);
+    }
+  }
+};
 
 // 展开图标
 const expandIcon = (propsval: any) => {
   if (propsval.record?.hasChild) {
     return h(
-      'span',
+      "span",
       {
-        class: 'expand-icon-wrapper',
+        class: "expand-icon-wrapper",
         onClick: (e: Event) => {
-          e.stopPropagation()
-          propsval.onExpand?.(propsval.record, e)
+          e.stopPropagation();
+          propsval.onExpand?.(propsval.record, e);
         },
       },
       [
         h(propsval.expanded ? CaretDownOutlined : CaretRightOutlined, {
-          class: 'expand-icon',
+          class: "expand-icon",
         }),
-      ],
-    )
+      ]
+    );
   }
-  return null
-}
+  return null;
+};
 </script>
 
 <template>
@@ -85,7 +108,7 @@ const expandIcon = (propsval: any) => {
       <template v-else-if="column.dataIndex === 'value'">
         <template v-if="record.hasChild">
           <span class="text-secondary">{{
-            record.type === 'array' ? '数组' : '对象'
+            record.type === "array" ? "数组" : "对象"
           }}</span>
         </template>
         <template v-else>
@@ -105,6 +128,8 @@ const expandIcon = (propsval: any) => {
             <CustomInput
               v-if="record.type === 'string'"
               :model-value="record.value"
+              :path="record.path"
+              :case-id="props.caseId"
               @update:model-value="
                 (val) => handleValueChange(record, { value: val })
               "
@@ -130,19 +155,22 @@ const expandIcon = (propsval: any) => {
 
     <template #expandedRowRender="{ record }">
       <div class="nested-content">
-        <template v-if="record.type === 'array'">
+        <template v-if="record.type === 'array' && record.hasChild">
           <CustomArray
             :columns="record.childrenColumn"
             :table="record.childrenTable"
+            :case-id="props.caseId"
+            :parent-path="record.path"
             @update:table="
               (val) => handleValueChange(record, { childrenTable: val })
             "
           />
         </template>
-        <template v-else-if="record.type === 'object'">
+        <template v-else-if="record.type === 'object' && record.hasChild">
           <CustomObj
             :columns="record.childrenColumn"
             :table="record.childrenTable"
+            :case-id="props.caseId"
             @update:table="
               (val) => handleValueChange(record, { childrenTable: val })
             "
