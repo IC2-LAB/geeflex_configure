@@ -10,10 +10,12 @@ import CustomObj from '#/views/_components/CustomObj.vue'
 // import schemaData from '#/data/schemaData.json'
 import { $t } from '#/locales'
 import { useCaseStore } from '#/store'
+import { syncData } from '#/utils/request'
 
 const caseStore = useCaseStore()
 const router = useRouter()
 const caseName = router.currentRoute.value.name
+const caseId = ref<string>('')
 const loading = ref(false)
 const fullCaseData = ref<any>(null)
 
@@ -38,6 +40,10 @@ const initData = async () => {
     if (!targetCase) {
       throw new Error('Case not found in list')
     }
+
+    // 保存 caseId 供后续使用
+    caseId.value = targetCase.id
+    // console.log('Case ID saved:', caseId.value) // 确认 ID 已保存
 
     await caseStore.fetchCase(targetCase.id)
     const caseData = caseStore.getCaseByName(caseName)
@@ -71,7 +77,7 @@ const initData = async () => {
 
     fullCaseData.value = fullData
 
-    // 解析数据
+    // 解析数据时传入 caseId
     const parsedData = parser(caseData.schema.properties, caseData.case_data)
     // console.log('Parsed data:', parsedData)
 
@@ -82,9 +88,8 @@ const initData = async () => {
 
     tableData.value = parsedData
     // console.log('Table data set:', tableData.value)
-  } catch {
-    // console.error('Failed to initialize case data:', error)
-    // message.error('Failed to load case data')
+  } catch (error) {
+    console.error('Failed to initialize case data:', error)
     tableData.value = []
   } finally {
     loading.value = false
@@ -92,13 +97,37 @@ const initData = async () => {
 }
 
 // 处理表格数据更新
-const handleTableUpdate = (newData: any[]) => {
-  if (!Array.isArray(newData)) {
-    // console.warn('Invalid table data update: expected array')
-    return
+const handleTableUpdate = async (
+  newData: any[],
+  path?: string,
+  type?: string,
+  value?: any,
+  operation?: 'add' | 'delete',
+) => {
+  try {
+    tableData.value = newData
+    // 使用保存的 caseId
+    const currentCaseId = caseId.value
+    if (!currentCaseId) {
+      throw new Error('No case ID available')
+    }
+
+    // 打印更新时的路径信息
+    // console.log('Update path:', path)
+    // console.log('Full update info:', { path, type, value, operation })
+
+    if (path && type && value !== undefined) {
+      await syncData({
+        path,
+        type,
+        value,
+        operation,
+        caseId: currentCaseId,
+      })
+    }
+  } catch (error) {
+    console.error('Failed to update table:', error)
   }
-  // console.log('Updating table data:', newData)
-  tableData.value = [...newData]
 }
 
 // 监听数据变化
@@ -123,6 +152,7 @@ onMounted(() => {
     <div v-else>
       <CustomObj
         v-if="tableData.length > 0"
+        :case-id="caseId"
         :columns="columns"
         :table="tableData"
         @update:table="handleTableUpdate"
