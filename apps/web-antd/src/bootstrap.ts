@@ -14,7 +14,7 @@ import { $t, setupI18n } from '#/locales'
 import { initComponentAdapter } from './adapter/component'
 import App from './app.vue'
 import { router } from './router'
-import { useCaseStore } from './store'
+import { useCaseStore, useMenuStore } from './store'
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
@@ -28,8 +28,9 @@ async function bootstrap(namespace: string) {
   // 配置 pinia-tore
   await initStores(app, { namespace })
   const caseStore = useCaseStore()
-  caseStore.$reset()
-
+  await caseStore.$reset()
+  const menuStore = useMenuStore()
+  await menuStore.$reset()
   // 安装权限指令
   registerAccessDirective(app)
 

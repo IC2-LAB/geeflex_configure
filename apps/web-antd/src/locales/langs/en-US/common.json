@@ -1,3 +1,14 @@
 {
-  "loadingMenu": "Loading menu"
+  "loadingMenu": "Loading menu",
+  "add": "Add",
+  "seq": "Seq",
+  "name": "Name",
+  "icon": "Icon",
+  "path": "Path",
+  "component": "Component",
+  "action": "Action",
+  "edit": "Edit",
+  "cancel": "Cancel",
+  "revert": "Revert",
+  "save": "Save"
 }

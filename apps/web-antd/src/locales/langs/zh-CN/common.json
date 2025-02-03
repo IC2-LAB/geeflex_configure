@@ -1,3 +1,14 @@
 {
-  "loadingMenu": "加载中..."
+  "loadingMenu": "加载中...",
+  "seq": "序号",
+  "add": "添加",
+  "name": "名称",
+  "icon": "图标",
+  "path": "路径",
+  "component": "组件",
+  "action": "操作",
+  "edit": "编辑",
+  "cancel": "取消",
+  "revert": "撤销",
+  "save": "保存"
 }
