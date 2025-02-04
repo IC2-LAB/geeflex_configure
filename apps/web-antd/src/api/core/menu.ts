@@ -16,3 +16,15 @@ export async function getAllMenus() {
     '/case/menu',
   )
 }
+
+export async function createMenu(data: RouteRecordStringComponent) {
+  const name = data.name as string
+  return baseRequestClient.patch<ApiResp<RouteRecordStringComponent>>(
+    `/case/menu/${name}`,
+    data,
+  )
+}
+
+export async function deleteMenu(name: string) {
+  return baseRequestClient.delete<ApiResp<any>>(`/case/menu/${name}`)
+}

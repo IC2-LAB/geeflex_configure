@@ -10,5 +10,7 @@
   "edit": "Edit",
   "cancel": "Cancel",
   "revert": "Revert",
-  "save": "Save"
+  "save": "Save",
+  "delete": "Delete",
+  "title": "Title"
 }

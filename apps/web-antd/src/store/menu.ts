@@ -18,9 +18,17 @@ export const useMenuStore = defineStore('menu', () => {
     }
   }
 
+  const deleteMenuByName = (name: string) => {
+    const index = menus.value.findIndex((item) => item.name === name)
+    if (index !== -1) {
+      menus.value.splice(index, 1)
+    }
+  }
+
   return {
     menus,
     setAllMenu,
     $reset,
+    deleteMenuByName,
   }
 })

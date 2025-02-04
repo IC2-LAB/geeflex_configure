@@ -52,5 +52,5 @@ export interface ApplicationApiResp<T> {
 export interface ApiResp<T> {
   code: number
   msg: string
-  data: ApplicationApiResp<T>
+  data?: ApplicationApiResp<T>
 }

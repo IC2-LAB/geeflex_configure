@@ -1,0 +1,6 @@
+{
+  "confirmDelete": "Are you sure you want to delete?",
+  "confirmDeleteMenuDesc": "This operation will delete the menu and its submenus. Do you want to continue? The menu name is ",
+  "deleteMenuFailed": "Failed to delete menu!",
+  "deleteMenuFailedHasChildDesc": "This menu still has child menus, please delete all child menus first."
+}

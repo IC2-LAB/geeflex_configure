@@ -1,0 +1,6 @@
+{
+  "confirmDelete": "确认删除吗？",
+  "confirmDeleteMenuDesc": "此操作将删除菜单及其子菜单。您要继续吗？菜单名称是",
+  "deleteMenuFailed": "删除菜单失败！",
+  "deleteMenuFailedHasChildDesc": "此菜单仍然有子菜单，请先删除所有子菜单。"
+}

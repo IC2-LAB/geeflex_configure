@@ -1,17 +1,19 @@
 <script lang="ts" setup>
 import type { RouteRecordStringComponent } from '@vben/types'
 
-import { computed, h, ref } from 'vue'
+import { h, ref } from 'vue'
 
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
+  MinusCircleOutlined,
   PlusCircleOutlined,
 } from '@ant-design/icons-vue'
 import { Icon } from '@iconify/vue'
-import { Button } from 'ant-design-vue'
+import { Button, Modal } from 'ant-design-vue'
 
 import { useVbenVxeGrid, type VxeGridProps } from '#/adapter/vxe-table'
+import { deleteMenu } from '#/api'
 import { $t } from '#/locales'
 import { useMenuStore } from '#/store'
 
@@ -23,21 +25,11 @@ interface RowType {
   component: string
   parentId: null | string
   icon?: string
+  title: string
 }
 
 const menuStore = useMenuStore()
-
 const rows = ref<RowType[]>([])
-
-function initialRow(): RowType {
-  return {
-    name: 'TBD',
-    path: '',
-    component: 'BasicLayout',
-    parentId: null,
-    icon: 'svg-spinners:3-dots-move',
-  }
-}
 
 function processMenu(menus: RouteRecordStringComponent[]): RowType[] {
   for (const item of menus) {
@@ -51,6 +43,7 @@ function processMenu(menus: RouteRecordStringComponent[]): RowType[] {
       component: 'BasicLayout',
       parentId: null,
       icon: item.meta?.icon as string,
+      title: item.meta?.title as string,
     }
     rows.value.push(row)
     if (item.children) {
@@ -62,6 +55,7 @@ function processMenu(menus: RouteRecordStringComponent[]): RowType[] {
           component: childItem.component,
           parentId: row.name,
           icon: childItem.meta?.icon as string,
+          title: childItem.meta?.title as string,
         }
         rows.value.push(childRow)
       }
@@ -70,9 +64,18 @@ function processMenu(menus: RouteRecordStringComponent[]): RowType[] {
   return rows.value
 }
 
-const tableData = computed(() => {
-  return processMenu(menuStore.menus)
-})
+processMenu(menuStore.menus)
+
+function initialRow(): RowType {
+  return {
+    name: 'TBD',
+    path: '',
+    component: 'BasicLayout',
+    parentId: null,
+    icon: 'svg-spinners:3-dots-move',
+    title: 'TBD',
+  }
+}
 
 const gridOptions: VxeGridProps<RowType> = {
   columns: [
@@ -96,13 +99,18 @@ const gridOptions: VxeGridProps<RowType> = {
       slots: { default: 'icon-name' },
     },
     {
+      editRender: { name: 'input' },
+      title: $t('common.title'),
+      field: 'title',
+    },
+    {
       title: $t('common.action'),
       field: 'action',
       fixed: 'right',
       slots: { default: 'action' },
     },
   ],
-  data: tableData.value,
+  data: rows.value,
   align: 'center',
   pagerConfig: {
     enabled: false,
@@ -130,6 +138,39 @@ async function addEvent(row: RowType) {
     newRow.parentId = row.parentId
   }
   rows.value.push(newRow)
+}
+
+function menuHasChild(name: string) {
+  return rows.value.some((item) => item.parentId === name)
+}
+
+function onDeleteMenu(row: RowType) {
+  if (menuHasChild(row.name)) {
+    Modal.warning({
+      title: $t('menu.deleteMenuFailed'),
+      content: $t('menu.deleteMenuFailedHasChildDesc'),
+    })
+    return
+  }
+  showConfirm(row)
+}
+
+function showConfirm(row: RowType) {
+  const currentName = row.name
+  Modal.confirm({
+    title: $t('menu.confirmDelete'),
+    content: `${$t('menu.confirmDeleteMenuDesc')}${currentName}`,
+    onOk: async () => {
+      const resp = await deleteMenu(row.name)
+      if (resp.data?.code === 200) {
+        menuStore.deleteMenuByName(currentName)
+        rows.value = rows.value.splice(
+          rows.value.findIndex((item) => item.name === currentName),
+          1,
+        )
+      }
+    },
+  })
 }
 
 function isEditting(row: RowType) {
@@ -170,16 +211,28 @@ function changeMenu(_row: RowType) {
           />
         </a-tooltip>
       </div>
-      <a-tooltip v-else>
-        <template #title>{{ $t('common.add') }}</template>
-        <Button
-          :icon="h(PlusCircleOutlined)"
-          shape="circle"
-          size="large"
-          type="text"
-          @click="addEvent(row)"
-        />
-      </a-tooltip>
+      <div v-else>
+        <a-tooltip>
+          <template #title>{{ $t('common.add') }}</template>
+          <Button
+            :icon="h(PlusCircleOutlined)"
+            shape="circle"
+            size="large"
+            type="text"
+            @click="addEvent(row)"
+          />
+        </a-tooltip>
+        <a-tooltip>
+          <template #title>{{ $t('common.delete') }}</template>
+          <Button
+            :icon="h(MinusCircleOutlined)"
+            shape="circle"
+            size="large"
+            type="text"
+            @click="onDeleteMenu(row)"
+          />
+        </a-tooltip>
+      </div>
     </template>
   </Grid>
 </template>
