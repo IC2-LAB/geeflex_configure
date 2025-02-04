@@ -44,7 +44,7 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
-    "cesium": "^1.125.0",
+    "cesium": "^1.126.0",
     "dayjs": "catalog:",
     "jsoneditor": "^10.1.2",
     "pinia": "catalog:",
