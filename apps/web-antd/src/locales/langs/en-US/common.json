@@ -12,5 +12,6 @@
   "revert": "Revert",
   "save": "Save",
   "delete": "Delete",
-  "title": "Title"
+  "title": "Title",
+  "confirm": "Confirm"
 }

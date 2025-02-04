@@ -12,5 +12,6 @@
   "revert": "撤销",
   "save": "保存",
   "delete": "删除",
-  "title": "标题"
+  "title": "标题",
+  "confirm": "确认"
 }

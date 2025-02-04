@@ -17,9 +17,11 @@ export async function getAllMenus() {
   )
 }
 
-export async function createMenu(data: RouteRecordStringComponent) {
-  const name = data.name as string
-  return baseRequestClient.patch<ApiResp<RouteRecordStringComponent>>(
+export async function createMenu(
+  name: string,
+  data: RouteRecordStringComponent,
+) {
+  return baseRequestClient.post<ApiResp<RouteRecordStringComponent>>(
     `/case/menu/${name}`,
     data,
   )
@@ -27,4 +29,14 @@ export async function createMenu(data: RouteRecordStringComponent) {
 
 export async function deleteMenu(name: string) {
   return baseRequestClient.delete<ApiResp<any>>(`/case/menu/${name}`)
+}
+
+export async function updateMenu(
+  name: string,
+  data: RouteRecordStringComponent,
+) {
+  return baseRequestClient.put<ApiResp<RouteRecordStringComponent>>(
+    `/case/menu/${name}`,
+    data,
+  )
 }

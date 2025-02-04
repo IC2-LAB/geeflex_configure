@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
+    "@iconify/vue": "^4.3.0",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -45,6 +46,7 @@
     "ant-design-vue": "catalog:",
     "cesium": "^1.125.0",
     "dayjs": "catalog:",
+    "jsoneditor": "^10.1.2",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"

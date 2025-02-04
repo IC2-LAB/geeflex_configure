@@ -10,10 +10,10 @@ import {
   PlusCircleOutlined,
 } from '@ant-design/icons-vue'
 import { Icon } from '@iconify/vue'
-import { Button, Modal } from 'ant-design-vue'
+import { Button, Modal, notification } from 'ant-design-vue'
 
 import { useVbenVxeGrid, type VxeGridProps } from '#/adapter/vxe-table'
-import { deleteMenu } from '#/api'
+import { createMenu, deleteMenu, updateMenu } from '#/api'
 import { $t } from '#/locales'
 import { useMenuStore } from '#/store'
 
@@ -168,6 +168,11 @@ function showConfirm(row: RowType) {
           rows.value.findIndex((item) => item.name === currentName),
           1,
         )
+      } else {
+        notification.error({
+          message: $t('menu.deleteMenuFailed'),
+          description: resp.data?.msg,
+        })
       }
     },
   })
@@ -178,7 +183,19 @@ function isEditting(row: RowType) {
   return gridApi.grid?.isEditByRow(row)
 }
 
-function changeMenu(_row: RowType) {
+async function changeMenu(row: RowType, insert = true) {
+  const name = row.name
+  const op = insert ? createMenu : updateMenu
+  const data = {
+    name,
+    path: row.path,
+    component: row.component,
+    parentId: row.parentId,
+    icon: row.icon,
+    title: row.title,
+  }
+  await op(name, data)
+  // if (res.data.code !== 200) {}
   // gridApi.grid?.setEditRow(row)
 }
 </script>
@@ -191,7 +208,7 @@ function changeMenu(_row: RowType) {
     <template #action="{ row }">
       <div v-if="isEditting(row)">
         <a-tooltip>
-          <template #title>{{ $t('common.edit') }}</template>
+          <template #title>{{ $t('common.confirm') }}</template>
           <Button
             :icon="h(CheckCircleOutlined)"
             shape="circle"
@@ -207,7 +224,6 @@ function changeMenu(_row: RowType) {
             shape="circle"
             size="large"
             type="text"
-            @click="changeMenu(row)"
           />
         </a-tooltip>
       </div>
