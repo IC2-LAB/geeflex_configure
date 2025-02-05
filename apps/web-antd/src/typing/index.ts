@@ -34,6 +34,15 @@ export interface CaseData {
   schema: object
 }
 
+export interface SchemaData {
+  $id?: string
+  $schema?: string
+  description?: string
+  properties: object
+  title: string
+  type: 'object'
+}
+
 export interface MenuData {
   component: string
   name: string

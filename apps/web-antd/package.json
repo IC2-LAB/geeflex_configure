@@ -47,9 +47,12 @@
     "cesium": "^1.125.0",
     "dayjs": "catalog:",
     "json-editor-vue": "^0.17.3",
+    "json-schema-faker": "^0.5.8",
     "pinia": "catalog:",
     "vanilla-jsoneditor": "^2.3.3",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "vxe-table": "4.10.5",
+    "vxe-ui": "^1.0.0"
   }
 }

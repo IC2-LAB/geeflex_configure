@@ -13,5 +13,6 @@
   "save": "Save",
   "delete": "Delete",
   "title": "Title",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "generate": "Generate"
 }

@@ -1,4 +1,4 @@
-import type { ApiResp, Case, CaseData } from '#/typing'
+import type { ApiResp, Case, CaseData, SchemaData } from '#/typing'
 
 import { baseRequestClient } from '#/api/request'
 
@@ -23,8 +23,41 @@ export async function getCase(id: string): Promise<CaseData> {
   const resp = await baseRequestClient.get<ApiResp<CaseData>>(
     `/case/case/${id}`,
   )
-  if (!resp.data.data) {
+  if (!resp.data?.data) {
     throw new Error('用例不存在')
   }
-  return resp.data.data
+  return resp.data?.data
+}
+
+export async function getEntity(): Promise<string[]> {
+  const resp = await baseRequestClient.get<ApiResp<string[]>>('/case/schema')
+  if (!resp.data?.data) {
+    throw new Error('后台错误')
+  }
+  return resp.data?.data
+}
+
+export async function getSchemaList(
+  entity: string,
+): Promise<string[] | undefined> {
+  const resp = await baseRequestClient.get<ApiResp<string[]>>(
+    `/case/schema/${entity}`,
+  )
+  if (resp.data?.code !== 200) {
+    throw new Error(`${entity}不存在！`)
+  }
+  return resp.data?.data
+}
+
+export async function getSchema(
+  entity: string,
+  schema: string,
+): Promise<SchemaData> {
+  const resp = await baseRequestClient.get<ApiResp<SchemaData>>(
+    `/case/schema/${entity}/${schema}`,
+  )
+  if (resp.data?.code !== 200) {
+    throw new Error(`${entity}不存在！`)
+  }
+  return resp.data?.data
 }

@@ -4,11 +4,13 @@ import { ref } from 'vue'
 
 import { defineStore } from 'pinia'
 
-import { getCase, getCases } from '#/api/core/case'
+import { getCase, getCases, getEntity, getSchemaList } from '#/api/core/case'
 
 export const useCaseStore = defineStore('case', () => {
   const cases = ref<Case[]>([])
   const caseData = ref<{ [key: string]: CaseData }>({})
+  const entities = ref<string[]>([])
+  const schemas = ref<{ [key in string]: string[] }>({})
 
   /**
    * 获取所有用例
@@ -44,11 +46,17 @@ export const useCaseStore = defineStore('case', () => {
     for (const item of cases.value) {
       await fetchCase(item.id)
     }
+    entities.value = await getEntity()
+    for (const item of entities.value) {
+      schemas.value[item] = await getSchemaList(item)
+    }
   }
 
   return {
     cases,
     caseData,
+    entities,
+    schemas,
     fetchCases,
     fetchCase,
     getCaseByName,
