@@ -46,8 +46,9 @@
     "ant-design-vue": "catalog:",
     "cesium": "^1.125.0",
     "dayjs": "catalog:",
-    "jsoneditor": "^10.1.2",
+    "json-editor-vue": "^0.17.3",
     "pinia": "catalog:",
+    "vanilla-jsoneditor": "^2.3.3",
     "vue": "catalog:",
     "vue-router": "catalog:"
   }

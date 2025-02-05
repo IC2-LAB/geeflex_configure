@@ -1,36 +1,22 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
-import JSONEditor from 'jsoneditor'
+import JsonEditorVue from 'json-editor-vue'
 
-import 'jsoneditor/dist/jsoneditor.css'
+import 'vanilla-jsoneditor/themes/jse-theme-dark.css'
 
-const jsonEditor = ref(null)
-const editor = ref(null)
-
-onMounted(() => {
-  editor.value = new JSONEditor(jsonEditor.value, {
-    mode: 'tree',
-    onChange: () => {
-      try {
-        editor.value.get()
-      } catch (error) {
-        console.error('Error updating JSON:', error)
-      }
-    },
-  })
-  // editor.value.set(props.value)
-})
-
-onBeforeUnmount(() => {
-  if (editor.value) {
-    editor.value.destroy()
-  }
+const content = ref({
+  array: [1, 2, 3],
+  boolean: true,
+  null: null,
+  number: 123,
+  object: { a: 'b', c: 'd' },
+  string: 'Hello World',
 })
 </script>
 
 <template>
-  <div ref="jsonEditor" style="height: 400px"></div>
+  <JsonEditorVue v-model="content" class="jse-theme-dark" />
 </template>
 
 <style>

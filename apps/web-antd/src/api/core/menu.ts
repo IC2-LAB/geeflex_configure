@@ -35,8 +35,14 @@ export async function updateMenu(
   name: string,
   data: RouteRecordStringComponent,
 ) {
-  return baseRequestClient.put<ApiResp<RouteRecordStringComponent>>(
+  return baseRequestClient.patch<ApiResp<RouteRecordStringComponent>>(
     `/case/menu/${name}`,
     data,
+  )
+}
+
+export async function getMenu(name: string) {
+  return baseRequestClient.get<ApiResp<RouteRecordStringComponent>>(
+    `/case/menu/${name}`,
   )
 }

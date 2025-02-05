@@ -11,9 +11,10 @@ import {
 } from '@ant-design/icons-vue'
 import { Icon } from '@iconify/vue'
 import { Button, Modal, notification } from 'ant-design-vue'
+import { type VxeGridInstance } from 'vxe-table'
 
 import { useVbenVxeGrid, type VxeGridProps } from '#/adapter/vxe-table'
-import { createMenu, deleteMenu, updateMenu } from '#/api'
+import { createMenu, deleteMenu, getMenu, updateMenu } from '#/api'
 import { $t } from '#/locales'
 import { useMenuStore } from '#/store'
 
@@ -30,6 +31,7 @@ interface RowType {
 
 const menuStore = useMenuStore()
 const rows = ref<RowType[]>([])
+const gridRef = ref<VxeGridInstance<RowType>>(null)
 
 function processMenu(menus: RouteRecordStringComponent[]): RowType[] {
   for (const item of menus) {
@@ -52,7 +54,7 @@ function processMenu(menus: RouteRecordStringComponent[]): RowType[] {
         const childRow: RowType = {
           name: childItem.name as string,
           path: childItem.path,
-          component: childItem.component,
+          component: childItem.component.name,
           parentId: row.name,
           icon: childItem.meta?.icon as string,
           title: childItem.meta?.title as string,
@@ -127,6 +129,7 @@ const gridOptions: VxeGridProps<RowType> = {
   rowConfig: {
     isHover: true,
   },
+  showOverflow: true,
 }
 
 const [Grid, gridApi] = useVbenVxeGrid({ gridOptions })
@@ -161,9 +164,19 @@ function showConfirm(row: RowType) {
     title: $t('menu.confirmDelete'),
     content: `${$t('menu.confirmDeleteMenuDesc')}${currentName}`,
     onOk: async () => {
+      // Check existence before delete
+      const res = await getMenu(currentName)
+      if (res.data?.code === 404) {
+        // Menu does not exist
+        rows.value = rows.value.splice(
+          rows.value.findIndex((item) => item.name === currentName),
+          1,
+        )
+        return
+      }
       const resp = await deleteMenu(row.name)
       if (resp.data?.code === 200) {
-        menuStore.deleteMenuByName(currentName)
+        // menuStore.deleteMenuByName(currentName)
         rows.value = rows.value.splice(
           rows.value.findIndex((item) => item.name === currentName),
           1,
@@ -183,25 +196,52 @@ function isEditting(row: RowType) {
   return gridApi.grid?.isEditByRow(row)
 }
 
-async function changeMenu(row: RowType, insert = true) {
+async function changeMenu(row: RowType) {
+  gridApi.grid?.clearEdit()
   const name = row.name
-  const op = insert ? createMenu : updateMenu
   const data = {
-    name,
+    name: row.name,
     path: row.path,
-    component: row.component,
+    component:
+      typeof row.component === 'function' ? row.component.name : row.component,
     parentId: row.parentId,
     icon: row.icon,
     title: row.title,
   }
-  await op(name, data)
-  // if (res.data.code !== 200) {}
+  // Check existence before update
+  const res = await getMenu(name)
+  if (res.data?.code === 404) {
+    // Create new menu
+    const createRes = await createMenu(name, data)
+    if (createRes.data?.code !== 200) {
+      notification.error({
+        message: $t('menu.updateMenuFailed'),
+        description: createRes.data?.msg,
+      })
+      return
+    }
+  }
+  const uRes = await updateMenu(name, data)
+  if (uRes.data?.code === 200) {
+    notification.success({
+      message: $t('menu.updateMenuSuccess'),
+      description: uRes.data.msg,
+    })
+  } else {
+    notification.error({
+      message: $t('menu.updateMenuFailed'),
+      description: uRes.data?.msg,
+    })
+  }
   // gridApi.grid?.setEditRow(row)
+}
+function cancelRowEvent() {
+  gridApi.grid?.clearEdit()
 }
 </script>
 
 <template>
-  <Grid>
+  <Grid ref="gridRef">
     <template #icon-name="{ row }">
       <Icon :icon="row.icon" :style="{ fontSize: '24px' }" />
     </template>
@@ -224,6 +264,7 @@ async function changeMenu(row: RowType, insert = true) {
             shape="circle"
             size="large"
             type="text"
+            @click="cancelRowEvent"
           />
         </a-tooltip>
       </div>
