@@ -59,7 +59,7 @@ const initData = async () => {
     //   },
     // })
 
-    if (!caseData || !caseData.schema || !caseData.case_data) {
+    if (!caseData || !caseData.schema_data || !caseData.case_data) {
       // console.error('Invalid case data:', caseData)
       throw new Error('Invalid case data structure')
     }
@@ -67,7 +67,7 @@ const initData = async () => {
     // 保存完整数据前检查数据结构
     const fullData = {
       case_data: { ...caseData.case_data },
-      schema: { ...caseData.schema },
+      schema: { ...caseData.schema_data },
     }
     // console.log('Full data structure check:', {
     //   hasBrCoverageLevels: 'br_coverage_levels' in fullData.case_data,
@@ -78,7 +78,10 @@ const initData = async () => {
     fullCaseData.value = fullData
 
     // 解析数据时传入 caseId
-    const parsedData = parser(caseData.schema.properties, caseData.case_data)
+    const parsedData = parser(
+      caseData.schema_data.properties,
+      caseData.case_data,
+    )
     // console.log('Parsed data:', parsedData)
 
     if (!Array.isArray(parsedData) || parsedData.length === 0) {

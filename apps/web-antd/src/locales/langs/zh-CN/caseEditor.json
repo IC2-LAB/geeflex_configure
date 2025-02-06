@@ -1,3 +1,10 @@
 {
-  "selectEntity": "选择网元"
+  "selectEntity": "选择网元",
+  "submitCase": "提交测试用例",
+  "inputName": "输入测试用例名称",
+  "caseName": "测试用例名称",
+  "submitError": "测试用例Schema和data提交错误",
+  "submitSuccess": "测试用例提交成功",
+  "submitSuccessDescription": "已创建新的测试用例，请前往测试用例列表查看并修改配置项",
+  "getSchemaError": "获取测试用例Schema错误"
 }

@@ -29,6 +29,30 @@ export async function getCase(id: string): Promise<CaseData> {
   return resp.data?.data
 }
 
+export async function postCase(caseName: string): Promise<string> {
+  /* 
+  % return: case_id in string
+  */
+  const data = {
+    name: caseName,
+  }
+  const resp = await baseRequestClient.post<ApiResp<{ case_id: string }>>(
+    '/case/case',
+    data,
+  )
+  return resp.data?.data?.case_id
+}
+
+export async function patchCase(
+  id: string,
+  data: { data: CaseData },
+): Promise<ApiResp<any>> {
+  const resp = await baseRequestClient.patch<ApiResp<any>>(`/case/case/${id}`, {
+    data,
+  })
+  return resp.data
+}
+
 export async function getEntity(): Promise<string[]> {
   const resp = await baseRequestClient.get<ApiResp<string[]>>('/case/schema')
   if (!resp.data?.data) {
@@ -56,8 +80,5 @@ export async function getSchema(
   const resp = await baseRequestClient.get<ApiResp<SchemaData>>(
     `/case/schema/${entity}/${schema}`,
   )
-  if (resp.data?.code !== 200) {
-    throw new Error(`${entity}不存在！`)
-  }
-  return resp.data?.data
+  return resp.data
 }

@@ -1,3 +1,10 @@
 {
-  "selectEntity": "Select network entity"
+  "selectEntity": "Select network entity",
+  "submitCase": "Submit test case",
+  "inputName": "Input test case name",
+  "caseName": "Test case name",
+  "submitError": "Case schema and data submit error",
+  "submitSuccess": "Case schema and data submit success",
+  "submitSuccessDescription": "Test case has been submitted successfully, please go to the case list page to view and modify the configuration",
+  "getSchemaError": "Get case schema error"
 }

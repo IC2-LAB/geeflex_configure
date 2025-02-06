@@ -31,7 +31,7 @@ export interface Case {
 
 export interface CaseData {
   case_data: object
-  schema: object
+  schema_data: object
 }
 
 export interface SchemaData {

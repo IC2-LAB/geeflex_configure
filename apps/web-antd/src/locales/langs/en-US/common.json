@@ -14,5 +14,6 @@
   "delete": "Delete",
   "title": "Title",
   "confirm": "Confirm",
-  "generate": "Generate"
+  "generate": "Generate",
+  "submit": "Submit"
 }

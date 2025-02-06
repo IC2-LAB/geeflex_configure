@@ -3,6 +3,7 @@ import { computed, watch } from 'vue'
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui'
 import { useWatermark } from '@vben/hooks'
+import { ApiIcon } from '@vben/icons'
 import { BasicLayout, LockScreen } from '@vben/layouts'
 import { preferences } from '@vben/preferences'
 import { useAccessStore, useUserStore } from '@vben/stores'
@@ -95,6 +96,9 @@ watch(
     </template>
     <template #lock-screen>
       <LockScreen :avatar @to-login="handleLogout" />
+    </template>
+    <template #api>
+      <ApiIcon class="size=-5" />
     </template>
   </BasicLayout>
 </template>
