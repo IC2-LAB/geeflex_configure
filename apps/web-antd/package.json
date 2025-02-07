@@ -44,7 +44,7 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
-    "cesium": "^1.125.0",
+    "cesium": "^1.126.0",
     "dayjs": "catalog:",
     "json-editor-vue": "^0.17.3",
     "json-schema-faker": "^0.5.8",
