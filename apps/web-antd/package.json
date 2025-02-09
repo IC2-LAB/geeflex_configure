@@ -42,6 +42,7 @@
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
+    "@vueup/vue-quill": "^1.2.0",
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
     "cesium": "^1.125.0",
@@ -52,6 +53,8 @@
     "vanilla-jsoneditor": "^2.3.3",
     "vue": "catalog:",
     "vue-router": "catalog:",
+    "vue-tianditu": "^2.7.6",
+    "vue3-excel-editor": "^1.0.59",
     "vxe-table": "4.10.5",
     "vxe-ui": "^1.0.0"
   }

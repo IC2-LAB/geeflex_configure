@@ -95,36 +95,34 @@ function submit() {
 }
 </script>
 <template>
-  <div>
-    <a-space wrap>
-      <a-dropdown>
-        <a class="ant-dropdown-link" @click.prevent>
-          {{ $t('caseEditor.selectEntity') }}
-          <DownOutlined />
-        </a>
-        <template #overlay>
-          <a-menu @click="onClick">
-            <a-menu-item v-for="entity in caseStore.entities" :key="entity">
-              <a-sub-menu :key="entity" :title="entity">
-                <a-menu-item
-                  v-for="schema in caseStore.schemas[entity]"
-                  :key="schema"
-                >
-                  {{ schema }}
-                </a-menu-item>
-              </a-sub-menu>
-            </a-menu-item>
-          </a-menu>
-        </template>
-      </a-dropdown>
-      <a-button :icon="h(EditOutlined)" @click="generate">
-        {{ $t('common.generate') }}
-      </a-button>
-      <a-button :icon="h(CloudUploadOutlined)" @click="submit">
-        {{ $t('common.submit') }}
-      </a-button>
-    </a-space>
-  </div>
+  <a-flex gap="middle" horizontal>
+    <a-dropdown>
+      <a class="ant-dropdown-link" @click.prevent>
+        {{ $t('caseEditor.selectEntity') }}
+        <DownOutlined />
+      </a>
+      <template #overlay>
+        <a-menu @click="onClick">
+          <a-menu-item v-for="entity in caseStore.entities" :key="entity">
+            <a-sub-menu :key="entity" :title="entity">
+              <a-menu-item
+                v-for="schema in caseStore.schemas[entity]"
+                :key="schema"
+              >
+                {{ schema }}
+              </a-menu-item>
+            </a-sub-menu>
+          </a-menu-item>
+        </a-menu>
+      </template>
+    </a-dropdown>
+    <a-button :icon="h(EditOutlined)" @click="generate">
+      {{ $t('common.generate') }}
+    </a-button>
+    <a-button :icon="h(CloudUploadOutlined)" @click="submit">
+      {{ $t('common.submit') }}
+    </a-button>
+  </a-flex>
   <a-flex gap="middle" horizontal>
     <JsonEditorVue
       v-model="content"

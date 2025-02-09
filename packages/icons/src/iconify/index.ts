@@ -13,3 +13,5 @@ export const MdiGoogle = createIconifyIcon('mdi:google')
 export const MdiQqchat = createIconifyIcon('mdi:qqchat')
 
 export const ApiIcon = createIconifyIcon('hugeicons:api')
+
+export const SaveIcon = createIconifyIcon('ic:twotone-save')
