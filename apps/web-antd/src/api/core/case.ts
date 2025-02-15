@@ -43,6 +43,27 @@ export async function postCase(caseName: string): Promise<string> {
   return resp.data?.data?.case_id
 }
 
+// 同步数据更新
+export const syncData = async (data: {
+  operation?: 'add' | 'delete'
+  path: string
+  type: string
+  value: any
+}) => {
+  try {
+    const { caseId, ...bodyData } = data
+    // 构建正确的 URL
+    const syncUrl = `/case/case/${caseId}/sync`
+    const response = await baseRequestClient.patch(syncUrl, {
+      body: bodyData,
+    })
+    return response.data
+  } catch (error) {
+    console.error('Sync error:', error)
+    throw error
+  }
+}
+
 export async function patchCase(
   id: string,
   data: { data: CaseData },

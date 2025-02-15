@@ -5,7 +5,7 @@ import { h } from 'vue'
 
 import { CaretDownOutlined, CaretRightOutlined } from '@ant-design/icons-vue'
 
-import { syncData } from '#/utils/request'
+import { syncData } from '#/api'
 
 import CustomArray from './CustomArray.vue'
 import CustomBoolean from './CustomBoolean.vue'

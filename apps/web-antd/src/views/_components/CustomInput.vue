@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import { syncData } from '#/utils/request'
+import { syncData } from '#/api'
 
 interface InputProps {
   tooltipTitle?: string

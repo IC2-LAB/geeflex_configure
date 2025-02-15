@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue'
 
-import { syncData } from '#/utils/request'
+import { syncData } from '#/api'
 
 import CustomBoolean from './CustomBoolean.vue'
 import CustomInput from './CustomInput.vue'

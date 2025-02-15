@@ -4,13 +4,12 @@ import type { ColumnType } from '#/typing'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
+import { syncData } from '#/api'
 import { parser } from '#/data/index'
 import CustomObj from '#/views/_components/CustomObj.vue'
-
 // import schemaData from '#/data/schemaData.json'
 import { $t } from '#/locales'
 import { useCaseStore } from '#/store'
-import { syncData } from '#/utils/request'
 
 const caseStore = useCaseStore()
 const router = useRouter()
