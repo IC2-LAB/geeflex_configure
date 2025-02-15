@@ -30,10 +30,7 @@ const tableData = ref<any[]>([])
 const initData = async () => {
   try {
     loading.value = true
-    await caseStore.fetchCases()
     const caseList = caseStore.cases
-    // console.log('Case list:', caseList)
-
     const targetCase = caseList.find((item) => item.name === caseName)
     // console.log('Target case:', targetCase)
 

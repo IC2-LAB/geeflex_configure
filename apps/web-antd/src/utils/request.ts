@@ -20,7 +20,7 @@ export const syncData = async (data: {
     const { caseId, ...bodyData } = data
     // 构建正确的 URL
     const syncUrl = `/case/${caseId}/sync`
-
+    print(syncUrl)
     const response = await request.patch(syncUrl, {
       body: bodyData,
     })

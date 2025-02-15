@@ -7,10 +7,10 @@ import { baseRequestClient } from '#/api/request'
  */
 export async function getCases(): Promise<Case[]> {
   const resp = await baseRequestClient.get<ApiResp<Case[]>>('/case/case')
-  if (!resp.data.data) {
+  if (!resp.data?.data) {
     return []
   }
-  return resp.data.data
+  return resp.data?.data
 }
 
 /**
