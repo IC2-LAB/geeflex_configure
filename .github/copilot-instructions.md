@@ -1,0 +1,9 @@
+- [x] Verify that the copilot-instructions.md file in the .github directory is created.
+- [x] Clarify Project Requirements
+- [x] Scaffold the Project
+- [x] Customize the Project
+- [x] Install Required Extensions
+- [ ] Compile the Project（用户跳过执行）
+- [ ] Create and Run Task（当前不需要）
+- [ ] Launch the Project（等待确认）
+- [x] Ensure Documentation is Complete
